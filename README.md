@@ -16,8 +16,17 @@ Then in another terminal window and from the `./token` directory, run the follow
 npx hardhat run --network hardhat scripts/deploy.ts
 ```
 
-The above command will deploy the smart contracts locally via `Hardhat` and print the smart contract address to console
+The above command will deploy the smart contracts locally via `Hardhat` and print the smart contract address to console, you need to set the smart contract address as an env var for the app. Go to the `./app` directory then run the following command
 
+```
+cp .env.example .env
+```
+
+Open the new `.env` file and set the `REACT_APP_SMART_CONTRACT_ADDRESS` variable to the value obtained when launching the smart contract. Then run the app with the following command
+
+```
+yarn start
+```
 
 
 ### Tools Used
