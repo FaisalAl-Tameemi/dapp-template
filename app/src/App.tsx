@@ -1,37 +1,38 @@
-import './App.css';
-import { useEffect, useState } from 'react';
-import { ethers } from 'ethers'
+import React, { useEffect, useState } from 'react'
+import { Web3Provider } from '@ethersproject/providers'
+import { useWeb3React } from '@web3-react/core'
 import { Counter__factory as CounterFactory } from './typechain/factories/Counter__factory'
 import { Counter } from './typechain/Counter'
+import { injected } from './utils/connectors'
+import { useEagerConnect, useInactiveListener } from './utils/hooks'
+import { Signer } from '@ethersproject/abstract-signer'
 
-// Update with the contract address logged out to the CLI when it was deployed 
-const contractAddress = '0xb6ed175C8d5bF8819a8a347965dE713AeD4135da'
-// const contractAddress = '0x5FbDB2315678afecb367f032d93F642f64180aa3'
+// Update with the contract address logged out to the CLI when it was deployed
+// NOTE: the contract address must match the network MetaMask is connected to
+const contractAddress = process.env.REACT_APP_SMART_CONTRACT_ADDRESS
 
-function App() {
-  const _window = window as any
-  const [accounts, setAccounts] = useState([] as string[])
-  const [contract, setContract] = useState(null as Counter|null)
+const WalletApp = () => {
+  const [contract, setContract] = useState(undefined as Counter|undefined)
+  const { chainId, account, activate, deactivate, active, library } = useWeb3React<Web3Provider>()
+
+  // auto-connect connect to the injected ethereum provider, if it exists and has granted access already
+  const triedEager = useEagerConnect()
+  useInactiveListener(!triedEager)
 
   useEffect(() => {
-    requestAccount()
-    const provider = new ethers.providers.Web3Provider(_window.ethereum)
-    setContract(CounterFactory.connect(contractAddress, provider.getSigner()))
-  }, [])
+    if (!contractAddress) {
+      throw new Error('Must set contract address as env var')
+    }
 
-  // request access to the user's MetaMask account
-  async function requestAccount() {
-    try {
-      const accounts = await _window.ethereum.request({ method: 'eth_requestAccounts' })
-      setAccounts(accounts)
-    }
-    catch (err) {
-      console.error(err)
-    }
+    setContract(CounterFactory.connect(contractAddress, library?.getSigner(account as string) as Signer))
+  }, [account, chainId, library])
+
+  const _connectToMetamask = () => {
+    activate(injected)
   }
-  
-  const getCount = async () => {
-    if (typeof _window.ethereum !== 'undefined') {
+
+  const _getCount = async () => {
+    if (active && !!contract) {
       try {
         const resp = await contract?.functions.getCount()
         console.log(resp)
@@ -41,8 +42,8 @@ function App() {
     }
   }
 
-  const countUp = async () => {
-    if (typeof _window.ethereum !== 'undefined') {
+  const _countUp = async () => {
+    if (active && !!contract) {
       try {
         const resp = await contract?.functions.countUp()
         console.log(resp)
@@ -53,15 +54,29 @@ function App() {
   }
 
   return (
-    <div className="App">
-      <header className="App-header">
-        { JSON.stringify(accounts) }
-        <button onClick={getCount}>Get Count</button>
-        <button onClick={countUp}>Count Up</button>
-        <button onClick={requestAccount}>Request Account</button>
-      </header>
+    <div>
+      <div>ChainId: {chainId}</div>
+      <div>Account: {account}</div>
+      {active ? (
+        <div>
+          ✅
+          <button onClick={() => deactivate()}>
+            deactivate
+          </button>
+          <br />
+          <button onClick={_getCount}>Get Count</button>
+          <button onClick={_countUp}>Count Up</button>
+        </div>
+      ) : (
+        <button type="button" onClick={_connectToMetamask}>
+          Connect
+        </button>
+      )}
+      <p>
+        {process.env.REACT_APP_SMART_CONTRACT_ADDRESS}
+      </p>
     </div>
-  );
+  )
 }
 
-export default App;
+export default WalletApp
