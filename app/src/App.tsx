@@ -72,9 +72,6 @@ const WalletApp = () => {
           Connect
         </button>
       )}
-      <p>
-        {process.env.REACT_APP_SMART_CONTRACT_ADDRESS}
-      </p>
     </div>
   )
 }

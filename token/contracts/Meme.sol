@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.7;
 
-import "hardhat/console.sol";
+// import "hardhat/console.sol"; // for console logger / debugging
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 
 contract MemeToken is ERC721 {

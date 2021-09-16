@@ -1,0 +1,37 @@
+<html>
+    <head>
+        <meta httpEquiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title><%= locals.title %></title>
+        <!-- <style type="text/css">{getStylesString()}</style> -->
+        <!- include('./style.ejs') >
+    </head>
+    <body>
+        <table cellPadding="0" cellSpacing="0" id="backgroundTable">
+            <tr>
+                <td>
+                    <table cellPadding="0" cellSpacing="0">
+                        <tr>
+                            <td>
+                                <h2><%= locals.title %></h2>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p><%= locals.body %></p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <a href="<%= locals.linkUrl %>" target="_blank" title="Styling Links">
+                                    <%= locals.linkTitle || locals.linkUrl %>
+                                </a>
+                                <img className="image_fix" src="<%= locals.imageUrl %>" />
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+    </body>
+</html>

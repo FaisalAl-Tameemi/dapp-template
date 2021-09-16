@@ -1,7 +1,7 @@
 {
   "_format": "hh-sol-cache-2",
   "files": {
-    "/home/faisal/Desktop/learning/token/contracts/Counter.sol": {
+    "/home/faisal/Desktop/mindsetlabs/dapp-template/token/contracts/Counter.sol": {
       "lastModificationDate": 1630790612414,
       "contentHash": "4e6bcc8c0b5205361f2524481527658f",
       "sourceName": "contracts/Counter.sol",
@@ -37,8 +37,8 @@
         "Counter"
       ]
     },
-    "/home/faisal/Desktop/learning/token/node_modules/hardhat/console.sol": {
-      "lastModificationDate": 1630785451755,
+    "/home/faisal/Desktop/mindsetlabs/dapp-template/token/node_modules/hardhat/console.sol": {
+      "lastModificationDate": 1631752783169,
       "contentHash": "cc4777addd464ea56fa35b1c45df0591",
       "sourceName": "hardhat/console.sol",
       "solcConfig": {
@@ -71,10 +71,10 @@
         "console"
       ]
     },
-    "/home/faisal/Desktop/learning/token/contracts/Meme.sol": {
-      "lastModificationDate": 1630826988870,
-      "contentHash": "65d1e9d024bd483d833f5f152c8d32e6",
-      "sourceName": "contracts/Meme.sol",
+    "/home/faisal/Desktop/mindsetlabs/dapp-template/token/contracts/Inu.sol": {
+      "lastModificationDate": 1631760763069,
+      "contentHash": "afc4f071108f330fa7829dea1f0749ec",
+      "sourceName": "contracts/Inu.sol",
       "solcConfig": {
         "version": "0.8.7",
         "settings": {
@@ -98,18 +98,159 @@
         }
       },
       "imports": [
-        "hardhat/console.sol",
-        "@openzeppelin/contracts/token/ERC721/ERC721.sol"
+        "@openzeppelin/contracts/token/ERC20/ERC20.sol"
       ],
       "versionPragmas": [
         "^0.8.7"
       ],
       "artifacts": [
-        "MemeToken"
+        "InuToken"
       ]
     },
-    "/home/faisal/Desktop/learning/token/node_modules/@openzeppelin/contracts/token/ERC721/ERC721.sol": {
-      "lastModificationDate": 1630826892004,
+    "/home/faisal/Desktop/mindsetlabs/dapp-template/token/node_modules/@openzeppelin/contracts/token/ERC20/ERC20.sol": {
+      "lastModificationDate": 1631752784829,
+      "contentHash": "2cd550cedf51b8d294607dad5023d717",
+      "sourceName": "@openzeppelin/contracts/token/ERC20/ERC20.sol",
+      "solcConfig": {
+        "version": "0.8.7",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "./IERC20.sol",
+        "./extensions/IERC20Metadata.sol",
+        "../../utils/Context.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "ERC20"
+      ]
+    },
+    "/home/faisal/Desktop/mindsetlabs/dapp-template/token/node_modules/@openzeppelin/contracts/token/ERC20/IERC20.sol": {
+      "lastModificationDate": 1631752784829,
+      "contentHash": "0eac3e1a83ee62326ca007811285b274",
+      "sourceName": "@openzeppelin/contracts/token/ERC20/IERC20.sol",
+      "solcConfig": {
+        "version": "0.8.7",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "IERC20"
+      ]
+    },
+    "/home/faisal/Desktop/mindsetlabs/dapp-template/token/node_modules/@openzeppelin/contracts/token/ERC20/extensions/IERC20Metadata.sol": {
+      "lastModificationDate": 1631752785157,
+      "contentHash": "aa1be06992a99bb7393b26a6af3c4dfb",
+      "sourceName": "@openzeppelin/contracts/token/ERC20/extensions/IERC20Metadata.sol",
+      "solcConfig": {
+        "version": "0.8.7",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "../IERC20.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "IERC20Metadata"
+      ]
+    },
+    "/home/faisal/Desktop/mindsetlabs/dapp-template/token/node_modules/@openzeppelin/contracts/utils/Context.sol": {
+      "lastModificationDate": 1631752783989,
+      "contentHash": "851485d5b925529b1a2f34a0be077891",
+      "sourceName": "@openzeppelin/contracts/utils/Context.sol",
+      "solcConfig": {
+        "version": "0.8.7",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "Context"
+      ]
+    },
+    "/home/faisal/Desktop/mindsetlabs/dapp-template/token/node_modules/@openzeppelin/contracts/token/ERC721/ERC721.sol": {
+      "lastModificationDate": 1631752784829,
       "contentHash": "a4f6dccf3f15b6844e357f737a572388",
       "sourceName": "@openzeppelin/contracts/token/ERC721/ERC721.sol",
       "solcConfig": {
@@ -150,8 +291,8 @@
         "ERC721"
       ]
     },
-    "/home/faisal/Desktop/learning/token/node_modules/@openzeppelin/contracts/token/ERC721/IERC721.sol": {
-      "lastModificationDate": 1630826892004,
+    "/home/faisal/Desktop/mindsetlabs/dapp-template/token/node_modules/@openzeppelin/contracts/token/ERC721/IERC721.sol": {
+      "lastModificationDate": 1631752784829,
       "contentHash": "53919d6975f2c0f3dffee5e3a1064116",
       "sourceName": "@openzeppelin/contracts/token/ERC721/IERC721.sol",
       "solcConfig": {
@@ -186,8 +327,8 @@
         "IERC721"
       ]
     },
-    "/home/faisal/Desktop/learning/token/node_modules/@openzeppelin/contracts/token/ERC721/IERC721Receiver.sol": {
-      "lastModificationDate": 1630826892004,
+    "/home/faisal/Desktop/mindsetlabs/dapp-template/token/node_modules/@openzeppelin/contracts/token/ERC721/IERC721Receiver.sol": {
+      "lastModificationDate": 1631752784829,
       "contentHash": "9a367cecca6fed80a3e975b7e6b3bd5c",
       "sourceName": "@openzeppelin/contracts/token/ERC721/IERC721Receiver.sol",
       "solcConfig": {
@@ -220,8 +361,8 @@
         "IERC721Receiver"
       ]
     },
-    "/home/faisal/Desktop/learning/token/node_modules/@openzeppelin/contracts/token/ERC721/extensions/IERC721Metadata.sol": {
-      "lastModificationDate": 1630826892004,
+    "/home/faisal/Desktop/mindsetlabs/dapp-template/token/node_modules/@openzeppelin/contracts/token/ERC721/extensions/IERC721Metadata.sol": {
+      "lastModificationDate": 1631752785157,
       "contentHash": "8aa69ca8424167555baaaa9f607801db",
       "sourceName": "@openzeppelin/contracts/token/ERC721/extensions/IERC721Metadata.sol",
       "solcConfig": {
@@ -256,8 +397,8 @@
         "IERC721Metadata"
       ]
     },
-    "/home/faisal/Desktop/learning/token/node_modules/@openzeppelin/contracts/utils/Address.sol": {
-      "lastModificationDate": 1630826891992,
+    "/home/faisal/Desktop/mindsetlabs/dapp-template/token/node_modules/@openzeppelin/contracts/utils/Address.sol": {
+      "lastModificationDate": 1631752783989,
       "contentHash": "c5f6c4e4df069c789e7d84b4c3011913",
       "sourceName": "@openzeppelin/contracts/utils/Address.sol",
       "solcConfig": {
@@ -290,42 +431,8 @@
         "Address"
       ]
     },
-    "/home/faisal/Desktop/learning/token/node_modules/@openzeppelin/contracts/utils/Context.sol": {
-      "lastModificationDate": 1630826891992,
-      "contentHash": "851485d5b925529b1a2f34a0be077891",
-      "sourceName": "@openzeppelin/contracts/utils/Context.sol",
-      "solcConfig": {
-        "version": "0.8.7",
-        "settings": {
-          "optimizer": {
-            "enabled": false,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [],
-      "versionPragmas": [
-        "^0.8.0"
-      ],
-      "artifacts": [
-        "Context"
-      ]
-    },
-    "/home/faisal/Desktop/learning/token/node_modules/@openzeppelin/contracts/utils/Strings.sol": {
-      "lastModificationDate": 1630826891992,
+    "/home/faisal/Desktop/mindsetlabs/dapp-template/token/node_modules/@openzeppelin/contracts/utils/Strings.sol": {
+      "lastModificationDate": 1631752783989,
       "contentHash": "62142442bed149f965c5ed971fae4182",
       "sourceName": "@openzeppelin/contracts/utils/Strings.sol",
       "solcConfig": {
@@ -358,8 +465,8 @@
         "Strings"
       ]
     },
-    "/home/faisal/Desktop/learning/token/node_modules/@openzeppelin/contracts/utils/introspection/ERC165.sol": {
-      "lastModificationDate": 1630826892004,
+    "/home/faisal/Desktop/mindsetlabs/dapp-template/token/node_modules/@openzeppelin/contracts/utils/introspection/ERC165.sol": {
+      "lastModificationDate": 1631752784829,
       "contentHash": "a9a5319dff9088c6ffe757ea1c2a6729",
       "sourceName": "@openzeppelin/contracts/utils/introspection/ERC165.sol",
       "solcConfig": {
@@ -394,8 +501,8 @@
         "ERC165"
       ]
     },
-    "/home/faisal/Desktop/learning/token/node_modules/@openzeppelin/contracts/utils/introspection/IERC165.sol": {
-      "lastModificationDate": 1630826892004,
+    "/home/faisal/Desktop/mindsetlabs/dapp-template/token/node_modules/@openzeppelin/contracts/utils/introspection/IERC165.sol": {
+      "lastModificationDate": 1631752784829,
       "contentHash": "9a04322bb8f6b8f2767d8358d1d2537b",
       "sourceName": "@openzeppelin/contracts/utils/introspection/IERC165.sol",
       "solcConfig": {
@@ -426,6 +533,42 @@
       ],
       "artifacts": [
         "IERC165"
+      ]
+    },
+    "/home/faisal/Desktop/mindsetlabs/dapp-template/token/contracts/Meme.sol": {
+      "lastModificationDate": 1631752572677,
+      "contentHash": "4fa059050d079b0b9cbb73d52aef2518",
+      "sourceName": "contracts/Meme.sol",
+      "solcConfig": {
+        "version": "0.8.7",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "@openzeppelin/contracts/token/ERC721/ERC721.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.7"
+      ],
+      "artifacts": [
+        "MemeToken"
       ]
     }
   }

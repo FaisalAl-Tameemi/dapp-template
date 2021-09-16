@@ -1,0 +1,48 @@
+version: '3'
+services:
+#  web:
+#    build: .
+#    ports:
+#      - "8080:8080"
+#    depends_on:
+#      - mongo
+
+#  mongo:
+#    image: mongo
+#    restart: always
+#    environment:
+#      MONGO_INITDB_ROOT_USERNAME: dev
+#      MONGO_INITDB_ROOT_PASSWORD: dev1234
+#      MONGO_INITDB_DATABASE: mongo-dev
+#    volumes:
+#      - /resources/mongo/db:/data/db
+#      - /resources/mongo/configdb:/data/configdb
+
+  postgres:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: dev1234
+      POSTGRES_USER: dev
+      POSTGRES_DB: postgres
+    ports:
+      - 5432:5432
+    volumes:
+      - ./resources/postgres:/var/lib/postgresql/data
+
+  api:
+    image: node:12
+    command: yarn dev
+    restart: always
+    depends_on:
+      - postgres
+    environment:
+      NODE_ENV: development
+      PORT: 3000
+    ports:
+      - 3000:3000
+    working_dir: /usr/app
+    volumes:
+      - ./:/usr/app/
+      - /usr/app/resources
+

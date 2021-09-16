@@ -19,7 +19,7 @@ const config: HardhatUserConfig = {
     },
     rinkeby: {
       url: 'https://rinkeby.infura.io/v3/01091511c975487ba99f221730a3ba08',
-      accounts: ['df57089febbacf7ba0bc227dafbffa9fc08a93fdc68e1e42411a14efcf23656e'],
+      accounts: ['5af769cbc95afe98f6a0d08c641e419be331692e30f8a85e06f55adc6db2cd29'],
     },
     ropsten: {
       url: 'https://ropsten.infura.io/v3/01091511c975487ba99f221730a3ba08',

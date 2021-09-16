@@ -1,0 +1,11 @@
+/node_modules
+/dist
+/coverage
+/resources
+
+.idea/
+error.log
+yarn-error.log
+
+/src/typechain
+/src/artifacts

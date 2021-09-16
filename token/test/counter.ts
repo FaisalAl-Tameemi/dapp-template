@@ -1,9 +1,11 @@
 import { ethers } from "hardhat"
+import chaiAsPromised from 'chai-as-promised'
 import chai from "chai"
 import { solidity } from "ethereum-waffle"
 import { Counter } from "../typechain/Counter"
 
 chai.use(solidity)
+chai.use(chaiAsPromised)
 
 const { expect } = chai
 
@@ -34,8 +36,9 @@ describe("Counter", () => {
     describe("count down", async () => {
         it("should fail", async () => {
             // this test will fail
-            await counter.countDown()
+            await expect(counter.countDown()).to.eventually.be.rejected
         })
+
         it("should count down", async () => {
             await counter.countUp()
             await counter.countDown()

@@ -41,6 +41,8 @@ interface CounterInterface extends ethers.utils.Interface {
   getEvent(nameOrSignatureOrTopic: "CountedTo"): EventFragment;
 }
 
+export type CountedToEvent = TypedEvent<[BigNumber] & { number: BigNumber }>;
+
 export class Counter extends BaseContract {
   connect(signerOrProvider: Signer | Provider | string): this;
   attach(addressOrName: string): this;
@@ -115,6 +117,10 @@ export class Counter extends BaseContract {
   };
 
   filters: {
+    "CountedTo(uint256)"(
+      number?: null
+    ): TypedEventFilter<[BigNumber], { number: BigNumber }>;
+
     CountedTo(
       number?: null
     ): TypedEventFilter<[BigNumber], { number: BigNumber }>;
