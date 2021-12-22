@@ -13,6 +13,22 @@ import * as Contracts from ".";
 declare module "hardhat/types/runtime" {
   interface HardhatEthersHelpers extends HardhatEthersHelpersBase {
     getContractFactory(
+      name: "ERC1155",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.ERC1155__factory>;
+    getContractFactory(
+      name: "IERC1155MetadataURI",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.IERC1155MetadataURI__factory>;
+    getContractFactory(
+      name: "IERC1155",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.IERC1155__factory>;
+    getContractFactory(
+      name: "IERC1155Receiver",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.IERC1155Receiver__factory>;
+    getContractFactory(
       name: "ERC20",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.ERC20__factory>;
@@ -56,6 +72,10 @@ declare module "hardhat/types/runtime" {
       name: "InuToken",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.InuToken__factory>;
+    getContractFactory(
+      name: "Memes",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.Memes__factory>;
     getContractFactory(
       name: "MemeToken",
       signerOrOptions?: ethers.Signer | FactoryOptions

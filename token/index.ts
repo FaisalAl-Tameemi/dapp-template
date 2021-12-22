@@ -2,7 +2,7 @@
  * A very simple sandbox file for interacting with the contracts quickly. Can be removed.
  */
 
- import { ethers } from 'ethers'
+import { ethers } from 'ethers'
 import { InuToken__factory as InuTokenFactory } from './typechain'
 
 const inuTokenAddress = process.env.INU_TOKEN_ADDRESS as string

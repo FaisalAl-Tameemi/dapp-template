@@ -1,11 +1,13 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
+import web3 from 'web3'
 import { Web3Provider } from '@ethersproject/providers'
 import { useWeb3React } from '@web3-react/core'
-import { Counter__factory as CounterFactory } from './typechain/factories/Counter__factory'
-import { Counter } from './typechain/Counter'
 import { injected } from './utils/connectors'
 import { useEagerConnect, useInactiveListener } from './utils/hooks'
 import { Signer } from '@ethersproject/abstract-signer'
+import { Counter__factory as CounterFactory } from './typechain/factories/Counter__factory'
+import { Counter } from './typechain/Counter'
+import { Button } from 'antd'
 
 // Update with the contract address logged out to the CLI when it was deployed
 // NOTE: the contract address must match the network MetaMask is connected to
@@ -53,6 +55,13 @@ const WalletApp = () => {
     }
   }
 
+  const _getBalance = async () => {
+    if (account) {
+      const balanceWei = await library?.getBalance(account)
+      alert(web3.utils.fromWei(balanceWei?.toString() || '0', 'ether'))
+    }
+  }
+
   return (
     <div>
       <div>ChainId: {chainId}</div>
@@ -60,12 +69,15 @@ const WalletApp = () => {
       {active ? (
         <div>
           ✅
-          <button onClick={() => deactivate()}>
+          <Button type='primary' onClick={() => deactivate()}>
             deactivate
-          </button>
+          </Button>
+          <Button type='primary' onClick={() => _getBalance()}>
+            get balance
+          </Button>
           <br />
-          <button onClick={_getCount}>Get Count</button>
-          <button onClick={_countUp}>Count Up</button>
+          <Button onClick={_getCount}>Get Count</Button>
+          <Button onClick={_countUp}>Count Up</Button>
         </div>
       ) : (
         <button type="button" onClick={_connectToMetamask}>

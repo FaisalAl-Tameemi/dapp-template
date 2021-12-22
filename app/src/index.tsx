@@ -1,6 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { Web3ReactProvider } from '@web3-react/core'
+import 'antd/dist/antd.less'
 
 import './index.css'
 import App from './App'
