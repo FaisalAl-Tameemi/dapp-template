@@ -17,7 +17,7 @@ export type { IERC165 } from "./IERC165";
 export type { Counter } from "./Counter";
 export type { InuToken } from "./InuToken";
 export type { Memes } from "./Memes";
-export type { MemeToken } from "./MemeToken";
+export type { Property } from "./Property";
 
 export { ERC1155__factory } from "./factories/ERC1155__factory";
 export { IERC1155MetadataURI__factory } from "./factories/IERC1155MetadataURI__factory";
@@ -35,4 +35,4 @@ export { IERC165__factory } from "./factories/IERC165__factory";
 export { Counter__factory } from "./factories/Counter__factory";
 export { InuToken__factory } from "./factories/InuToken__factory";
 export { Memes__factory } from "./factories/Memes__factory";
-export { MemeToken__factory } from "./factories/MemeToken__factory";
+export { Property__factory } from "./factories/Property__factory";

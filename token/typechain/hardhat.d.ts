@@ -77,9 +77,9 @@ declare module "hardhat/types/runtime" {
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.Memes__factory>;
     getContractFactory(
-      name: "MemeToken",
+      name: "Property",
       signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.MemeToken__factory>;
+    ): Promise<Contracts.Property__factory>;
 
     // default types
     getContractFactory(

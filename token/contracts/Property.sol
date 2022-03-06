@@ -2,14 +2,15 @@ pragma solidity ^0.8.7;
 
 import "@openzeppelin/contracts/token/ERC1155/ERC1155.sol";
 import "@openzeppelin/contracts/utils/math/SafeMath.sol";
-import "./DynamicPaymentSplitter.sol";
+import "@openzeppelin/contracts/utils/structs/EnumerableSet.sol";
 
 contract Property is ERC1155 {
     using SafeMath for uint256;
+    using EnumerableSet for EnumerableSet.AddressSet;
 
     uint256 TOKEN_ID = 0;
     mapping(address => Listing) public listings;
-    mapping(address => uint256) public balances;
+    mapping(address => uint256) public paymentBalances;
 
     struct Listing {
         uint256 price;
@@ -19,12 +20,11 @@ contract Property is ERC1155 {
     uint256 pricePerShare;
     uint256 totalShares;
     uint256 totalIssuedShares;
-    DynamicPaymentSplitter paymentSplitter;
+    EnumerableSet.AddressSet private shareHolders;
 
-    constructor(string memory _baseUrl, uint256 memory _pricePerShare, uint256 memory _totalShares) public ERC1155(_baseUrl) {
+    constructor(string memory _baseUrl, uint256 _pricePerShare, uint256 _totalShares) public ERC1155(_baseUrl) {
         pricePerShare = _pricePerShare;
         totalShares = _totalShares;
-        paymentSplitter = new DynamicPaymentSplitter();
     }
 
     function mint(uint256 amountOfTokens) public payable {
@@ -34,6 +34,7 @@ contract Property is ERC1155 {
         _mint(msg.sender, TOKEN_ID, amountOfTokens, "");
 
         totalIssuedShares = totalIssuedShares.add(amountOfTokens);
+        shareHolders.add(msg.sender);
 
         // TODO: emit event for issuing of shares
     }
@@ -47,29 +48,42 @@ contract Property is ERC1155 {
         // TODO: emit event for listing shares
     }
 
-    function purchaseShares (uint256 listingId, uint256 amountToPurchase) public payable {
-        listing = listings[listingId];
-        
-        require(msg.value >= listing.price.mul(amountToPurchase), "insufficient funds sent");
-        require(amountToPurchase <= listing.amount, "invalid amount of shares requested");
+    function purchaseShares (address listingId, uint256 amountToPurchase) public payable {
+        require(msg.value >= listings[listingId].price.mul(amountToPurchase), "insufficient funds sent");
+        require(amountToPurchase <= listings[listingId].amount, "invalid amount of shares requested");
         require(balanceOf(listingId, TOKEN_ID) >= amountToPurchase, "insufficient amount from owner");
 
-        balances[listingId] += msg.value;
+        paymentBalances[listingId] += msg.value;
         safeTransferFrom(listingId, msg.sender, TOKEN_ID, amountToPurchase, "");
         
-        if (amountToPurchase == listing.amount) {
+        if (amountToPurchase == listings[listingId].amount) {
             delete listings[listingId];
         } else {
-            listings[listingId] = Listing(listing.price, listing.amount.sub(amountToPurchase));
+            listings[listingId] = Listing(listings[listingId].price, listings[listingId].amount.sub(amountToPurchase));
         }
+
+        shareHolders.add(msg.sender);
 
         // TODO: emit purchase shares event
     }
 
     function withdrawFunds (uint256 amount, address payable recipientAddress) public {
-        require(balances[msg.sender] >= amount, "insufficient funds");
+        require(paymentBalances[msg.sender] >= amount, "insufficient funds");
 
         recipientAddress.transfer(amount);
-        balances[msg.sender] -= amount;
+        paymentBalances[msg.sender] -= amount;
+    }
+
+    function receiveRewards () public payable {
+        // iterate over each holder
+        for (uint i = 0; i < shareHolders.length(); i++) {
+            address shareHolderAddr = shareHolders.at(i);
+            uint256 tokenBalance = balanceOf(shareHolderAddr, TOKEN_ID);
+
+            if (tokenBalance > 0) {
+                uint256 partialPayment = tokenBalance.div(totalIssuedShares).mul(msg.value);
+                paymentBalances[shareHolderAddr] = paymentBalances[shareHolderAddr].add(partialPayment);
+            }
+        }
     }
 }
