@@ -1,9 +1,20 @@
 import React from "react";
 import { useNavigate } from "react-router";
 import "./styles.css";
+import { injected } from "../../utils/connectors";
+import { Web3Provider } from "@ethersproject/providers";
+import { useWeb3React } from "@web3-react/core";
 
 export default function Header() {
   let navigate = useNavigate();
+
+  const { activate } = useWeb3React<Web3Provider>();
+
+  const _connectToMetamask = () => {
+    activate(injected);
+    console.log(activate(injected));
+  };
+
   return (
     <div className="header">
       <h1 className="header--logo">
@@ -29,8 +40,17 @@ export default function Header() {
             </button>
           </li>
           <li>
-            <button className="header--connect">connect wallet</button>
+            <button
+              className="header--connect"
+              onClick={() => _connectToMetamask()}
+            >
+              connect wallet
+            </button>
           </li>
+          <div className="burger">
+            <div className="menu--line"></div>
+            <div className="menu--line"></div>
+          </div>
         </ul>
       </nav>
     </div>

@@ -40,6 +40,7 @@ const WalletApp = () => {
 
   const _connectToMetamask = () => {
     activate(injected);
+    console.log(activate(injected));
   };
 
   const _getCount = async () => {
