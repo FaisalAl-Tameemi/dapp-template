@@ -75,21 +75,33 @@ const WalletApp = () => {
   return (
     <div>
       <Header />
-      <div>ChainId: {chainId}</div>
+      {/* <div>ChainId: {chainId}</div>*/}
       <div>Account: {account}</div>
       <Outlet />
       {active ? (
-        <div>
+        <div className="z-index---5">
           ✅
-          <Button type="primary" onClick={() => deactivate()}>
+          <Button
+            type="primary"
+            onClick={() => deactivate()}
+            className="z-index---5"
+          >
             deactivate
           </Button>
-          <Button type="primary" onClick={() => _getBalance()}>
+          <Button
+            type="primary"
+            onClick={() => _getBalance()}
+            className="z-index---5"
+          >
             get balance
           </Button>
           <br />
-          <Button onClick={_getCount}>Get Count</Button>
-          <Button onClick={_countUp}>Count Up</Button>
+          <Button onClick={_getCount} className="z-index---5">
+            Get Count
+          </Button>
+          <Button onClick={_countUp} className="z-index---5">
+            Count Up
+          </Button>
         </div>
       ) : (
         <button type="button" onClick={_connectToMetamask}>
