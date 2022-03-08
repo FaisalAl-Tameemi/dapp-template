@@ -9,13 +9,18 @@ import reportWebVitals from "./reportWebVitals";
 import { getLibrary } from "./utils/misc";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import DaoManagerView from "./Components/DaoManager/DaoManagerView";
+import HomePage from "./Components/Home/HomePage";
+
+import Header from "./Components/Header/Header";
 
 ReactDOM.render(
   <React.StrictMode>
     <Web3ReactProvider getLibrary={getLibrary}>
       <BrowserRouter>
+        <Header />
         <Routes>
           <Route path="/" element={<App />}>
+            <Route path="/" element={<HomePage />}></Route>
             <Route path="DaoManager" element={<DaoManagerView />}></Route>
           </Route>
           <Route path="*" element={<App />}></Route>

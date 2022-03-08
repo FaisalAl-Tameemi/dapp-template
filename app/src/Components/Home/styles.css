@@ -1,0 +1,38 @@
+.container {
+  margin: 0px 60px;
+}
+
+.section {
+  padding: 100px 50px;
+  border-radius: 30px;
+  min-height: 65vh;
+}
+
+.title {
+  font-size: 3.4rem;
+  /* font-size: 52px; */
+  font-weight: 700;
+  /* background-color: skyblue; */
+  width: 55%;
+}
+
+@media (max-width: 850px) {
+  .section {
+    padding: 50px 10px;
+  }
+
+  .title {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+@media (max-width: 600px) {
+  .container {
+    margin: 0 15px;
+  }
+}
+
+/* shadow */
+/* background-color: rgb(34, 34, 34); */
+/* box-shadow: 1px 4px 20px rgba(0, 0, 0, 1); */

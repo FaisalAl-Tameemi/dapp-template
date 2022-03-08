@@ -74,11 +74,10 @@ const WalletApp = () => {
 
   return (
     <div>
-      <Header />
       {/* <div>ChainId: {chainId}</div>*/}
-      <div>Account: {account}</div>
       <Outlet />
-      {active ? (
+      <div>Account: {account}</div>
+      {/* {active ? (
         <div className="z-index---5">
           ✅
           <Button
@@ -107,7 +106,7 @@ const WalletApp = () => {
         <button type="button" onClick={_connectToMetamask}>
           Connect
         </button>
-      )}
+      )} */}
     </div>
   );
 };

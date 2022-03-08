@@ -2,14 +2,14 @@
   position: absolute;
   height: 100vh;
   width: 100vw;
-  background-color: rgb(196, 196, 196);
-  background: linear-gradient(
+  background-color: rgb(59, 59, 59);
+  /* background: linear-gradient(
     270deg,
     #db9148 0%,
     #cd7f72 37.5%,
     #be6ba4 68.23%,
     #af57d9 100%
-  );
+  ); */
   top: -100vh;
   left: 0;
   padding: 150px 60px 0px 60px;
