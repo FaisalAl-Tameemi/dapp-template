@@ -1,3 +1,9 @@
-.divdiv {
-  background-color: red;
+section {
+  /* padding: 100px 60px; */
+}
+
+.divider--full--length {
+  width: 100%;
+  height: 1px;
+  background-color: white;
 }

@@ -7,10 +7,7 @@ import { useEagerConnect, useInactiveListener } from "./utils/hooks";
 import { Signer } from "@ethersproject/abstract-signer";
 import { Counter__factory as CounterFactory } from "./typechain/factories/Counter__factory";
 import { Counter } from "./typechain/Counter";
-import { Button } from "antd";
 import { Outlet } from "react-router";
-
-import Header from "./Components/Header/Header";
 
 // Update with the contract address logged out to the CLI when it was deployed
 // NOTE: the contract address must match the network MetaMask is connected to
@@ -76,7 +73,7 @@ const WalletApp = () => {
     <div>
       {/* <div>ChainId: {chainId}</div>*/}
       <Outlet />
-      <div>Account: {account}</div>
+      {/* <div>Account: {account}</div> */}
       {/* {active ? (
         <div className="z-index---5">
           ✅

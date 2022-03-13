@@ -5,13 +5,16 @@ import { injected } from "../../utils/connectors";
 import { Web3Provider } from "@ethersproject/providers";
 import { useWeb3React } from "@web3-react/core";
 import CollapsedNav from "./Collapse/CollapsedNav";
+import profile from "../../static/profile.svg";
+import wallet from "../../static/wallet.svg";
 
 export default function Header() {
   let navigate = useNavigate();
 
   const [menuIsActive, setMenuIsActive] = useState(false);
 
-  const { activate } = useWeb3React<Web3Provider>();
+  const { chainId, account, activate, deactivate, active, library } =
+    useWeb3React<Web3Provider>();
 
   const _connectToMetamask = () => {
     activate(injected);
@@ -37,6 +40,9 @@ export default function Header() {
         <nav>
           <ul className="header--nav">
             <li>
+              <button className="header--nav--actionbutton">MARKETPLACE</button>
+            </li>
+            <li>
               <button className="header--nav--link">
                 <a href="https://app.gitbook.com/o/royHtkR6AKieNQ1UygU7/s/tgIrluxcjOTzLxDW1aVB/">
                   WHITEPAPER
@@ -48,15 +54,17 @@ export default function Header() {
                 onClick={() => navigate(`../DaoManager`)}
                 className="header--nav--link"
               >
-                CREATE DAO
+                DAO PORTAL
               </button>
             </li>
             <li>
-              <button
-                className="header--connect"
-                onClick={() => _connectToMetamask()}
-              >
-                connect wallet
+              <button className="header--nav--link">
+                <img src={profile} alt="" />
+              </button>
+            </li>
+            <li>
+              <button className="header--nav--link">
+                <img src={wallet} alt="" />
               </button>
             </li>
             <div
@@ -72,4 +80,22 @@ export default function Header() {
       <CollapsedNav {...MyxProps} />
     </div>
   );
+}
+
+{
+  /* {!account ? (
+  <button
+    className="header--connect"
+    onClick={() => _connectToMetamask()}
+  >
+    connect wallet
+  </button>
+) : (
+  <button
+    className="header--connect"
+    onClick={() => deactivate()}
+  >
+    <div className=" disconnect">Acc: {account}</div>
+  </button>
+)} */
 }
