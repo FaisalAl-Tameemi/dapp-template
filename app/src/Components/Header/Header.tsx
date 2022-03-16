@@ -8,6 +8,8 @@ import CollapsedNav from "./Collapse/CollapsedNav";
 import profile from "../../static/profile.svg";
 import wallet from "../../static/wallet.svg";
 
+import { Popover, Button } from "antd";
+
 export default function Header() {
   let navigate = useNavigate();
 
@@ -25,6 +27,23 @@ export default function Header() {
     active: menuIsActive,
     menuItems: ["WHITEPAPER", "CREATE DAO"],
   };
+
+  const titleWallet = <span>Wallet</span>;
+  const content = (
+    <div>
+      {account ? (
+        <div>
+          <p>Account: {account}</p>
+
+          <button onClick={() => deactivate()}>Disconnect</button>
+        </div>
+      ) : (
+        <button onClick={() => _connectToMetamask()}>Connect</button>
+      )}
+    </div>
+  );
+
+  const titleProfile = <span>Account</span>;
 
   return (
     <div>
@@ -57,16 +76,33 @@ export default function Header() {
                 DAO PORTAL
               </button>
             </li>
+            {/* <li>
+              <div>
+                <Popover
+                  placement="bottomRight"
+                  title={titleProfile}
+                  content={content}
+                  trigger="click"
+                  className="menuuuu"
+                >
+                  <img src={profile} alt="" />
+                </Popover>
+              </div>
+            </li> */}
             <li>
-              <button className="header--nav--link">
-                <img src={profile} alt="" />
-              </button>
+              <div>
+                <Popover
+                  placement="bottomRight"
+                  title={titleWallet}
+                  content={content}
+                  trigger="click"
+                  className="header--nav--link"
+                >
+                  <img src={wallet} alt="" />
+                </Popover>
+              </div>
             </li>
-            <li>
-              <button className="header--nav--link">
-                <img src={wallet} alt="" />
-              </button>
-            </li>
+
             <div
               className={`burger ${menuIsActive ? `menu--is--active` : null} `}
               onClick={() => setMenuIsActive(!menuIsActive)}

@@ -14,33 +14,38 @@
   align-items: center;
 }
 
-.section--hero--right {
-  width: auto;
-  /* background-color: aqua; */
-}
-
 .hero--image {
   width: 100%;
+  height: 100%;
+  opacity: 0;
 }
 
-.title {
+.hero--title {
   font-size: 3.4rem;
   font-weight: 700;
   /* background-color: skyblue; */
   width: 80%;
 }
 
+.hero--sub {
+  font-size: 0.9rem;
+  font-weight: 400;
+  width: 80%;
+  margin-bottom: 50px;
+}
+
 .primary--button {
-  padding: 12px 40px;
-  background-color: rgba(68, 81, 88, 0.4);
-  border: none;
-  border-radius: 10px;
+  padding: 8px 26px;
   color: rgb(255, 255, 255);
-  font-weight: 700;
-  font-size: 1.2rem;
-  border: white 1px solid;
+  font-weight: 600;
+  font-size: 1rem;
+  border: rgba(255, 255, 255, 0.5) 1px solid;
   box-shadow: 1px 4px 20px rgba(34, 34, 34, 0.3);
   cursor: pointer;
+  margin-bottom: 50px;
+  background: rgba(255, 255, 255, 0.2);
+  box-shadow: 5px 4px 22px rgba(0, 0, 0, 0.25);
+  border-radius: 6px;
 }
 
 .primary--button:hover {
@@ -54,9 +59,14 @@
 }
 
 @media (max-width: 1150px) {
-  .title {
+  .hero--title {
     width: 100%;
   }
+
+  .hero--sub {
+    width: 75%;
+  }
+
   .section--hero {
     flex-direction: column;
   }
@@ -64,7 +74,7 @@
 
 @media (max-width: 850px) {
   .section--hero {
-    padding: 100px 10px;
+    padding: 70px 10px;
   }
 
   .section--hero--left {
@@ -73,7 +83,8 @@
     align-items: center;
   }
 
-  .title {
+  .hero--title,
+  .hero--sub {
     width: 100%;
     text-align: center;
   }
@@ -86,12 +97,69 @@
   .title {
     line-height: 4rem;
   }
+  .section--hero {
+    padding-top: 50px;
+  }
 }
 
 /* shadow */
 /* background-color: rgb(34, 34, 34); */
 /* box-shadow: 1px 4px 20px rgba(0, 0, 0, 1); */
 
-section {
-  /* margin-bottom: 50px; */
+.section--hero--right {
+  width: auto;
+  /* background-color: beige; */
+  position: sticky;
+}
+
+.section--hero--right--card {
+  background-color: rgb(25, 25, 25);
+  position: absolute;
+  height: 90%;
+  width: 65%;
+  top: 3%;
+  left: 17.5%;
+  border-radius: 40px;
+}
+
+.left--card {
+  left: 2%;
+  height: 60%;
+  top: 24%;
+  border-radius: 30px;
+  opacity: 0.9;
+  box-shadow: 0px 6.8px 9px rgba(0, 0, 0, 0.129),
+    0px 22.8px 30.4px rgba(0, 0, 0, 0.191), 0px 102px 136px rgba(0, 0, 0, 0.32);
+}
+
+.right--card {
+  left: 33%;
+  height: 60%;
+  top: 24%;
+  opacity: 0.9;
+  border-radius: 30px;
+  box-shadow: 0px 6.8px 9px rgba(0, 0, 0, 0.129),
+    0px 22.8px 30.4px rgba(0, 0, 0, 0.191), 0px 102px 136px rgba(0, 0, 0, 0.32);
+}
+.main--card {
+  z-index: 2;
+  object-fit: cover;
+  box-shadow: 0px 2.1px 13.7px rgba(0, 0, 0, 0.067),
+    0px 5px 33px rgba(0, 0, 0, 0.097), 0px 9.4px 62.1px rgba(0, 0, 0, 0.12),
+    0px 16.8px 110.8px rgba(0, 0, 0, 0.143),
+    0px 31.3px 207.2px rgba(0, 0, 0, 0.173), 0px 75px 496px rgba(0, 0, 0, 0.24);
+}
+
+.card--image {
+  background-color: aqua;
+  height: 60%;
+  border-radius: 40px;
+  overflow: hidden;
+  object-position: center;
+}
+
+.main--image {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
 }
