@@ -13,6 +13,7 @@ import App from "./App";
 import DaoManagerView from "./Components/DaoManager/DaoManagerView";
 import HomePage from "./Components/Home/HomePage";
 import Header from "./Components/Header/Header";
+import Alchemy from "./Components/DaoManager/CreateDAO/Alchemy";
 
 ReactDOM.render(
   <React.StrictMode>
@@ -24,6 +25,7 @@ ReactDOM.render(
             <Route path="/" element={<App />}>
               <Route path="/" element={<HomePage />}></Route>
               <Route path="DaoManager" element={<DaoManagerView />}></Route>
+              <Route path="Alchemy" element={<Alchemy />}></Route>
             </Route>
             <Route path="*" element={<App />}></Route>
           </Routes>

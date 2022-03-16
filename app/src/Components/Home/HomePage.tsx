@@ -19,12 +19,13 @@ export default function HomePage() {
 
   const yPos = useRef(0);
   const xPos = useRef(0);
+  const timingFunction = 0.03;
 
   const lerp = (x: number, y: number, a: number) => x * (1 - a) + y * a;
 
   useEffect(() => {
-    yPos.current = lerp(yPos.current, 20 * parralaxY, 0.03);
-    xPos.current = lerp(xPos.current, 15 * parralaxX, 0.03);
+    yPos.current = lerp(yPos.current, 20 * parralaxY, timingFunction);
+    xPos.current = lerp(xPos.current, 15 * parralaxX, timingFunction);
   });
 
   return (
@@ -71,12 +72,6 @@ export default function HomePage() {
                   }px)`,
                 }}
               ></div>
-              {/* {position.y} <br />
-              {window.innerHeight} <br />
-              {yPos.current} */}
-              {/* {((position.y - 0.5 * window.innerHeight) * 2) /
-                window.innerHeight}{" "}
-              <br /> */}
               <img className="hero--image" src={HeroImage} alt="hero" />
             </div>
           </div>

@@ -8,7 +8,7 @@ interface CounterState {
 
 // Define the initial state using that type
 const initialState: CounterState = {
-  value: "Yeah",
+  value: "DefaultDAOName",
 };
 
 export const nameSlice = createSlice({
