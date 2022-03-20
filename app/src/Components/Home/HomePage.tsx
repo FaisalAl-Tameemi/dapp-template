@@ -1,7 +1,7 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import "./styles.css";
 import HeroImage from "../../static/HeroImage.png";
-import MainHouse from "../../static/MainHouse.jpg";
+import MainHouse from "../../static/MainHouse.png";
 
 import { useMousePosition } from "../../utils/useMousePosition";
 

@@ -1,17 +1,19 @@
 import { useState } from "react";
-import { useNavigate } from "react-router";
+import { useNavigate, useLocation } from "react-router";
+import { Link } from "react-router-dom";
+import "antd/dist/antd.css";
 import "./styles.css";
 import { injected } from "../../utils/connectors";
 import { Web3Provider } from "@ethersproject/providers";
 import { useWeb3React } from "@web3-react/core";
 import CollapsedNav from "./Collapse/CollapsedNav";
-import profile from "../../static/profile.svg";
 import wallet from "../../static/wallet.svg";
 
-import { Popover, Button } from "antd";
+import { Popover } from "antd";
 
 export default function Header() {
   let navigate = useNavigate();
+  const location = useLocation();
 
   const [menuIsActive, setMenuIsActive] = useState(false);
 
@@ -34,7 +36,6 @@ export default function Header() {
       {account ? (
         <div>
           <p>Account: {account}</p>
-
           <button onClick={() => deactivate()}>Disconnect</button>
         </div>
       ) : (
@@ -43,7 +44,8 @@ export default function Header() {
     </div>
   );
 
-  const titleProfile = <span>Account</span>;
+  const pathName = location.pathname.toString();
+  let isAlchemy = pathName.includes("Alchemy/");
 
   return (
     <div>
@@ -55,42 +57,28 @@ export default function Header() {
           >
             bit<span className="header--logo--bolder">Properties</span>
           </button>
+          {isAlchemy}
         </h1>
-        <nav>
-          <ul className="header--nav">
-            <li>
-              <button className="header--nav--actionbutton">MARKETPLACE</button>
-            </li>
-            <li>
-              <button className="header--nav--link">
-                <a href="https://app.gitbook.com/o/royHtkR6AKieNQ1UygU7/s/tgIrluxcjOTzLxDW1aVB/">
-                  WHITEPAPER
-                </a>
-              </button>
-            </li>
-            <li>
-              <button
-                onClick={() => navigate(`../DaoManager`)}
-                className="header--nav--link"
-              >
-                DAO PORTAL
-              </button>
-            </li>
-            {/* <li>
-              <div>
-                <Popover
-                  placement="bottomRight"
-                  title={titleProfile}
-                  content={content}
-                  trigger="click"
-                  className="menuuuu"
-                >
-                  <img src={profile} alt="" />
-                </Popover>
-              </div>
-            </li> */}
-            <li>
-              <div>
+
+        {!isAlchemy ? (
+          <nav>
+            <ul className="header--nav">
+              <li className="header--li">
+                <button className="header--nav--actionbutton">
+                  MARKETPLACE
+                </button>
+              </li>
+              <li className="header--li">
+                <button className="header--nav--link">
+                  <a href="https://app.gitbook.com/o/royHtkR6AKieNQ1UygU7/s/tgIrluxcjOTzLxDW1aVB/">
+                    WHITEPAPER
+                  </a>
+                </button>
+              </li>
+              <li className="header--li">
+                <Link to="Alchemy">ALCHEMY</Link>
+              </li>
+              <li className="header--li">
                 <Popover
                   placement="bottomRight"
                   title={titleWallet}
@@ -100,38 +88,21 @@ export default function Header() {
                 >
                   <img src={wallet} alt="" />
                 </Popover>
-              </div>
-            </li>
-
-            <div
-              className={`burger ${menuIsActive ? `menu--is--active` : null} `}
-              onClick={() => setMenuIsActive(!menuIsActive)}
-            >
-              <span className="menu--line"></span>
-              <span className="menu--line"></span>
-            </div>
-          </ul>
-        </nav>
+              </li>
+              {/* <div
+                className={`burger ${
+                  menuIsActive ? `menu--is--active` : null
+                } `}
+                onClick={() => setMenuIsActive(!menuIsActive)}
+              >
+                <span className="menu--line"></span>
+                <span className="menu--line"></span>
+              </div> */}
+            </ul>
+          </nav>
+        ) : null}
       </div>
-      <CollapsedNav {...MyxProps} />
+      {/* <CollapsedNav {...MyxProps} /> */}
     </div>
   );
-}
-
-{
-  /* {!account ? (
-  <button
-    className="header--connect"
-    onClick={() => _connectToMetamask()}
-  >
-    connect wallet
-  </button>
-) : (
-  <button
-    className="header--connect"
-    onClick={() => deactivate()}
-  >
-    <div className=" disconnect">Acc: {account}</div>
-  </button>
-)} */
 }

@@ -10,10 +10,15 @@ import { getLibrary } from "./utils/misc";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import App from "./App";
-import DaoManagerView from "./Components/DaoManager/DaoManagerView";
+import Alchemy from "./Components/DaoManager/Alchemy";
 import HomePage from "./Components/Home/HomePage";
 import Header from "./Components/Header/Header";
-import Alchemy from "./Components/DaoManager/CreateDAO/Alchemy";
+import Creation from "./Components/DaoManager/Creation";
+
+import BasicDetails from "./Components/DaoManager/BasicDetails";
+import Governance from "./Components/DaoManager/Governance";
+import Tokenomics from "./Components/DaoManager/Tokenomics";
+import Confirmation from "./Components/DaoManager/Confirmation";
 
 ReactDOM.render(
   <React.StrictMode>
@@ -24,8 +29,25 @@ ReactDOM.render(
           <Routes>
             <Route path="/" element={<App />}>
               <Route path="/" element={<HomePage />}></Route>
-              <Route path="DaoManager" element={<DaoManagerView />}></Route>
               <Route path="Alchemy" element={<Alchemy />}></Route>
+              <Route path="Alchemy/create" element={<Creation />}>
+                <Route
+                  path="/Alchemy/create"
+                  element={<BasicDetails />}
+                ></Route>
+                <Route
+                  path="/Alchemy/create/governance"
+                  element={<Governance />}
+                ></Route>
+                <Route
+                  path="/Alchemy/create/tokenomics"
+                  element={<Tokenomics />}
+                ></Route>
+                <Route
+                  path="/Alchemy/create/confirmation"
+                  element={<Confirmation />}
+                ></Route>
+              </Route>
             </Route>
             <Route path="*" element={<App />}></Route>
           </Routes>

@@ -1,9 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
-import nameSlice from "./Components/DaoManager/CreateDAO/nameSlice";
+import DaoCreationSlice from "./Components/DaoManager/CreateDAO/DaoCreationSlice";
+// import nameSlice from "./Components/DaoManager/CreateDAO/DaoCreationSlice";
 
 const store = configureStore({
   reducer: {
-    name: nameSlice,
+    Alchemy: DaoCreationSlice,
   },
 });
 

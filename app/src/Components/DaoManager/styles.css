@@ -1,7 +1,5 @@
-.alchemy--container {
-  padding: 100px 60px;
-  display: flex;
-  flex-direction: column;
+.alchemy--intro {
+  padding: 100px 40px;
 }
 
 .intro--title {
@@ -9,15 +7,142 @@
   text-align: center;
   font-size: 3.4rem;
   font-weight: 700;
-  margin-bottom: 200px;
 }
 
-.intro--choice--button {
-  padding: 25px 50px;
-  /* padding-bottom: 500px; */
-  margin: 0 auto;
-  background-color: rgba(255, 255, 255, 0.1);
-  border-radius: 25px;
-  border: 1px rgba(255, 255, 255, 0.7) solid;
-  cursor: pointer;
+.center {
+  align-content: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.creation {
+  background-color: rgba(60, 178, 182, 0.3);
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: calc(100%);
+  /* width: 30%; */
+  width: 500px;
+  border-right: 1px solid white;
+  transition: 0.5s;
+}
+
+.alchemy--side--container {
+  padding: 130px 40px 30px 40px;
+  /* background-color: blue; */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+}
+
+.alchemy--flask {
+  width: 170px;
+  /* margin: 0 auto 15px auto; */
+  margin-left: 120px;
+}
+
+.alchemy--tab--li {
+  list-style: none;
+  /* background-color: blanchedalmond; */
+  margin-top: 23px;
+  padding: 25px;
+  display: flex;
+  /* color: black; */
+}
+
+.alchemy--tab--tickcross {
+  margin-right: 50px;
+}
+
+.flex {
+  display: flex;
+  align-items: center;
+}
+
+.alchemy--tab--title {
+  font-size: 1.25rem;
+}
+
+.left {
+  position: fixed;
+  left: 500px;
+  top: 0;
+  width: calc(100% - 500px);
+}
+
+.alchemy--section--right {
+  position: absolute;
+  /* background-color: blanchedalmond; */
+  /* top: 0; */
+  overflow: scroll;
+  padding: 100px 100px;
+  height: 100vh;
+}
+.alchemy--section--right::-webkit-scrollbar {
+  display: none;
+}
+
+.alchemy--section--title {
+  color: white;
+  font-size: 2.4rem;
+  font-weight: 600;
+}
+.alchemy--section--subtitle {
+  color: white;
+}
+
+.alchemy--inputfield {
+  color: black;
+}
+
+.alchemy--slider {
+  margin-bottom: 20px;
+  width: 1000px;
+}
+
+.alchemy--input {
+  margin: 10px 0 10px;
+  background-color: rgba(255, 255, 255, 0.5);
+  color: black;
+}
+
+.alchemy--payout {
+  display: flex;
+  flex-direction: row;
+}
+
+.alchemy--switch {
+  margin-bottom: 15px;
+}
+
+.alchemy--input--group {
+  margin-bottom: 20px;
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+  width: 740px;
+}
+
+.alchemy--bottom--links {
+  justify-content: space-between;
+  margin-top: 50px;
+  display: flex;
+  flex-direction: row;
+}
+
+@media (max-width: 1400px) {
+  /* .creation, */
+  .alchemy--section--right {
+    transform: translate(-500px, 0);
+    transition: 0.5s;
+  }
+
+  .creation {
+    transform: translateX(-800px);
+    transition: 0.5s;
+  }
 }
