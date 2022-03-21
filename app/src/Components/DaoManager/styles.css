@@ -18,45 +18,24 @@
 }
 
 .creation {
-  background-color: rgba(60, 178, 182, 0.3);
   position: absolute;
   left: 0;
   top: 0;
   height: calc(100%);
-  /* width: 30%; */
-  width: 500px;
+
+  width: 400px;
   border-right: 1px solid white;
-  transition: 0.5s;
 }
 
 .alchemy--side--container {
   padding: 130px 40px 30px 40px;
-  /* background-color: blue; */
+
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   position: absolute;
   height: 100%;
   width: 100%;
-}
-
-.alchemy--flask {
-  width: 170px;
-  /* margin: 0 auto 15px auto; */
-  margin-left: 120px;
-}
-
-.alchemy--tab--li {
-  list-style: none;
-  /* background-color: blanchedalmond; */
-  margin-top: 23px;
-  padding: 25px;
-  display: flex;
-  /* color: black; */
-}
-
-.alchemy--tab--tickcross {
-  margin-right: 50px;
 }
 
 .flex {
@@ -68,20 +47,16 @@
   font-size: 1.25rem;
 }
 
-.left {
-  position: fixed;
-  left: 500px;
-  top: 0;
-  width: calc(100% - 500px);
-}
-
 .alchemy--section--right {
   position: absolute;
-  /* background-color: blanchedalmond; */
-  /* top: 0; */
+  background-color: rgba(58, 37, 37, 0.4);
+  top: 0;
+  left: 400px;
   overflow: scroll;
-  padding: 100px 100px;
+  padding: 100px;
   height: 100vh;
+  width: calc(100% - 400px);
+  min-width: 800px;
 }
 .alchemy--section--right::-webkit-scrollbar {
   display: none;
@@ -102,12 +77,12 @@
 
 .alchemy--slider {
   margin-bottom: 20px;
-  width: 1000px;
 }
 
 .alchemy--input {
   margin: 10px 0 10px;
-  background-color: rgba(255, 255, 255, 0.5);
+  background-color: rgba(255, 255, 255, 0.3);
+  border: 1px solid white;
   color: black;
 }
 
@@ -124,7 +99,6 @@
   margin-bottom: 20px;
   padding: 8px 0;
   border-bottom: 1px solid rgba(255, 255, 255, 0.3);
-  width: 740px;
 }
 
 .alchemy--bottom--links {
@@ -134,15 +108,15 @@
   flex-direction: row;
 }
 
-@media (max-width: 1400px) {
-  /* .creation, */
-  .alchemy--section--right {
-    transform: translate(-500px, 0);
-    transition: 0.5s;
-  }
+.alchemy--steps {
+  height: 400px;
+}
 
-  .creation {
-    transform: translateX(-800px);
-    transition: 0.5s;
-  }
+.xxx {
+  background-color: violet;
+  width: 100%;
+  height: 100%;
+}
+
+@media (max-width: 1400px) {
 }

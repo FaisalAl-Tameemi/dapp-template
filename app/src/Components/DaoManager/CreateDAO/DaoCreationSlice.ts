@@ -70,5 +70,5 @@ export const {
 // Other code such as selectors can use the imported `RootState` type
 // export const selectCount = (state: RootState) => state.Alchemy.name;
 
-// export const selectCount = (state: RootState) => state.name.value;
+export const selectCount = (state: RootState) => state.Alchemy.name;
 export default DaoCreationSlice.reducer;

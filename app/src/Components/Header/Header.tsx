@@ -6,7 +6,7 @@ import "./styles.css";
 import { injected } from "../../utils/connectors";
 import { Web3Provider } from "@ethersproject/providers";
 import { useWeb3React } from "@web3-react/core";
-import CollapsedNav from "./Collapse/CollapsedNav";
+// import CollapsedNav from "./Collapse/CollapsedNav";
 import wallet from "../../static/wallet.svg";
 
 import { Popover } from "antd";
@@ -23,11 +23,6 @@ export default function Header() {
   const _connectToMetamask = () => {
     activate(injected);
     console.log(activate(injected));
-  };
-
-  const MyxProps = {
-    active: menuIsActive,
-    menuItems: ["WHITEPAPER", "CREATE DAO"],
   };
 
   const titleWallet = <span>Wallet</span>;
@@ -69,14 +64,17 @@ export default function Header() {
                 </button>
               </li>
               <li className="header--li">
-                <button className="header--nav--link">
-                  <a href="https://app.gitbook.com/o/royHtkR6AKieNQ1UygU7/s/tgIrluxcjOTzLxDW1aVB/">
-                    WHITEPAPER
-                  </a>
-                </button>
+                <a
+                  className="header--nav--link"
+                  href="https://app.gitbook.com/o/royHtkR6AKieNQ1UygU7/s/tgIrluxcjOTzLxDW1aVB/"
+                >
+                  WHITEPAPER
+                </a>
               </li>
               <li className="header--li">
-                <Link to="Alchemy">ALCHEMY</Link>
+                <Link className="header--nav--link" to="Alchemy">
+                  CREATE DAO
+                </Link>
               </li>
               <li className="header--li">
                 <Popover

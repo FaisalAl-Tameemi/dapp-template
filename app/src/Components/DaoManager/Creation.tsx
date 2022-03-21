@@ -1,12 +1,17 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import "./styles.css";
-import cross from "../../static/cross.svg";
-import tick from "../../static/tick.svg";
-import { Outlet } from "react-router";
+import { Navigate, Outlet, useNavigate, useLocation } from "react-router";
 import { useAppSelector } from "../../utils/reduxhooks";
 import { Progress } from "antd";
+import { Steps } from "antd";
 
 export default function Creation() {
+  const { Step } = Steps;
+  let navigate = useNavigate();
+  let location = useLocation();
+
+  const [current, setCurrent] = useState(0);
+
   const name = useAppSelector((state) => state.Alchemy.name);
   const proposalPassing = useAppSelector(
     (state) => state.Alchemy.proposalPassing
@@ -22,29 +27,6 @@ export default function Creation() {
   const initTokenSupply = useAppSelector(
     (state) => state.Alchemy.initTokenSupply
   );
-
-  const sideTabs = useRef([
-    {
-      id: 1,
-      title: `Basic Information`,
-      progressComplete: false,
-    },
-    {
-      id: 2,
-      title: `Governance`,
-      progressComplete: false,
-    },
-    {
-      id: 3,
-      title: `Tokenomics`,
-      progressComplete: false,
-    },
-    {
-      id: 4,
-      title: `Done!`,
-      progressComplete: false,
-    },
-  ]);
 
   const [percentage, setPercentage] = useState(0);
 
@@ -67,30 +49,61 @@ export default function Creation() {
       }
       return percentage;
     });
+
+    //Update STEPS on `Next Section / Back
+    if (location.pathname === `/Alchemy/create/`) {
+      setCurrent(0);
+    }
+    if (location.pathname === `/Alchemy/create/governance`) {
+      setCurrent(1);
+    }
+    if (location.pathname === `/Alchemy/create/tokenomics`) {
+      setCurrent(2);
+    }
+    if (location.pathname === `/Alchemy/create/confirmation`) {
+      setCurrent(3);
+    }
   });
 
-  const sideBarElements = sideTabs.current.map((tab, index) => {
-    return (
-      <li key={index} className="alchemy--tab--li">
-        <div className="flex">
-          <div className="alchemy--tab--title">{tab.title}</div>
-        </div>
-      </li>
-    );
-  });
+  //navigate on step change
+  const onChange = (current: any) => {
+    setCurrent(current);
+    if (current === 0) {
+      navigate(`/Alchemy/create`);
+    }
+    if (current === 1) {
+      navigate(`/Alchemy/create/governance`);
+    }
+    if (current === 2) {
+      navigate(`/Alchemy/create/tokenomics`);
+    }
+    if (current === 3) {
+      navigate(`/Alchemy/create/confirmation`);
+    }
+  };
 
   return (
     <div>
       <div className="creation">
         <div className="alchemy--side--container">
-          <Progress percent={percentage} />
+          <Progress percent={percentage} showInfo={false} />
           <div className="x"></div>
           <div>
-            <ul>{sideBarElements}</ul>
+            <Steps
+              current={current}
+              onChange={onChange}
+              direction="vertical"
+              className="alchemy--steps"
+            >
+              <Step title={`Basic Information`}></Step>
+              <Step title={`Governance`}></Step>
+              <Step title={`Tokenomics`}></Step>
+              <Step title={`Done!`}></Step>
+            </Steps>
           </div>
         </div>
       </div>
-      <div className="left">
+      <div className="xxx">
         <Outlet />
       </div>
     </div>
