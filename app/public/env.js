@@ -28,7 +28,7 @@ window.env = {
   "npm_package_browserslist_development_2": "last 1 safari version",
   "npm_execpath": "/usr/local/lib/node_modules/yarn/bin/yarn.js",
   "npm_package_dependencies_react_redux": "^7.2.6",
-  "PATH": "/var/folders/js/h4x98nfj25g1cxlvsg5jtgzw0000gn/T/yarn--1647814345516-0.3128217412750276:/Users/nikitagurbatov/bitProperties/app/node_modules/.bin:/Users/nikitagurbatov/.config/yarn/link/node_modules/.bin:/Users/nikitagurbatov/.yarn/bin:/usr/local/libexec/lib/node_modules/npm/bin/node-gyp-bin:/usr/local/lib/node_modules/npm/bin/node-gyp-bin:/usr/local/bin/node_modules/npm/bin/node-gyp-bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+  "PATH": "/var/folders/js/h4x98nfj25g1cxlvsg5jtgzw0000gn/T/yarn--1647968279556-0.28350946497027074:/Users/nikitagurbatov/bitProperties/app/node_modules/.bin:/Users/nikitagurbatov/.config/yarn/link/node_modules/.bin:/Users/nikitagurbatov/.yarn/bin:/usr/local/libexec/lib/node_modules/npm/bin/node-gyp-bin:/usr/local/lib/node_modules/npm/bin/node-gyp-bin:/usr/local/bin/node_modules/npm/bin/node-gyp-bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin",
   "npm_config_argv": "{\"remain\":[],\"cooked\":[\"run\",\"start\"],\"original\":[\"start\"]}",
   "npm_package_dependencies__ethersproject_providers": "^5.4.5",
   "_": "/Users/nikitagurbatov/bitProperties/app/node_modules/.bin/react-dotenv",

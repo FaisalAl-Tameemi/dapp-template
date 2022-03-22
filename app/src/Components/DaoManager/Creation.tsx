@@ -12,26 +12,24 @@ export default function Creation() {
 
   const [current, setCurrent] = useState(0);
 
-  const name = useAppSelector((state) => state.Alchemy.name);
-  const proposalPassing = useAppSelector(
-    (state) => state.Alchemy.proposalPassing
-  );
-  const quorumPercentage = useAppSelector(
-    (state) => state.Alchemy.quorumPercentage
-  );
-  const voteDurationWeeks = useAppSelector(
-    (state) => state.Alchemy.voteDurationWeeks
-  );
-  const tokenSymbol = useAppSelector((state) => state.Alchemy.tokenSymbol);
-
-  const initTokenSupply = useAppSelector(
-    (state) => state.Alchemy.initTokenSupply
-  );
+  const inputs = useAppSelector((state) => {
+    const inputs = state.Alchemy;
+    return inputs;
+  });
 
   const [percentage, setPercentage] = useState(0);
 
+  const {
+    name,
+    proposalPassing,
+    quorumPercentage,
+    voteDurationWeeks,
+    tokenSymbol,
+    initTokenSupply,
+  } = inputs;
+
   useEffect(() => {
-    const inputs = [
+    const inputsNeeded = [
       name,
       quorumPercentage,
       proposalPassing,
@@ -39,9 +37,10 @@ export default function Creation() {
       tokenSymbol,
       initTokenSupply,
     ];
-    const total = inputs.length;
+
+    const total = inputsNeeded.length;
     let completed = 0;
-    inputs.forEach((element) => {
+    inputsNeeded.forEach((element) => {
       if (element) {
         completed++;
         setPercentage((completed / total) * 100);
@@ -78,7 +77,9 @@ export default function Creation() {
       navigate(`/Alchemy/create/tokenomics`);
     }
     if (current === 3) {
-      navigate(`/Alchemy/create/confirmation`);
+      if (percentage === 100) {
+        navigate(`/Alchemy/create/confirmation`);
+      }
     }
   };
 
@@ -86,7 +87,14 @@ export default function Creation() {
     <div>
       <div className="creation">
         <div className="alchemy--side--container">
-          <Progress percent={percentage} showInfo={false} />
+          <Progress
+            percent={percentage}
+            showInfo={false}
+            strokeColor={{
+              "0%": "#108ee9",
+              "100%": "#87d068",
+            }}
+          />
           <div className="x"></div>
           <div>
             <Steps
@@ -103,9 +111,8 @@ export default function Creation() {
           </div>
         </div>
       </div>
-      <div className="xxx">
-        <Outlet />
-      </div>
+      <Outlet />
+      <div className="alchemy--background"></div>
     </div>
   );
 }

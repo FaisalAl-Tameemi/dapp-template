@@ -9,6 +9,11 @@
   font-weight: 700;
 }
 
+.column {
+  display: flex;
+  flex-direction: column;
+}
+
 .center {
   align-content: center;
   display: flex;
@@ -22,14 +27,12 @@
   left: 0;
   top: 0;
   height: calc(100%);
-
-  width: 400px;
+  width: 300px;
   border-right: 1px solid white;
 }
 
 .alchemy--side--container {
   padding: 130px 40px 30px 40px;
-
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -49,14 +52,14 @@
 
 .alchemy--section--right {
   position: absolute;
-  background-color: rgba(58, 37, 37, 0.4);
+
   top: 0;
-  left: 400px;
+  left: 300px;
   overflow: scroll;
   padding: 100px;
   height: 100vh;
-  width: calc(100% - 400px);
-  min-width: 800px;
+  width: calc(100% - 300px);
+  min-width: 940px;
 }
 .alchemy--section--right::-webkit-scrollbar {
   display: none;
@@ -72,32 +75,39 @@
 }
 
 .alchemy--inputfield {
-  color: black;
-}
-
-.alchemy--slider {
-  margin-bottom: 20px;
+  color: white;
 }
 
 .alchemy--input {
   margin: 10px 0 10px;
-  background-color: rgba(255, 255, 255, 0.3);
+  background-color: rgba(255, 255, 255, 0.2);
   border: 1px solid white;
-  color: black;
+  color: white;
 }
 
 .alchemy--payout {
   display: flex;
   flex-direction: row;
+  margin-bottom: 15px;
+  width: 740px;
 }
 
+.align--middle {
+  justify-content: center;
+}
+
+.alchemy--account--type {
+  font-weight: 400;
+  margin-top: 32px;
+  width: 200px;
+}
 .alchemy--switch {
   margin-bottom: 15px;
 }
 
 .alchemy--input--group {
-  margin-bottom: 20px;
-  padding: 8px 0;
+  margin-bottom: 30px;
+  padding: 10px 0;
   border-bottom: 1px solid rgba(255, 255, 255, 0.3);
 }
 
@@ -112,11 +122,21 @@
   height: 400px;
 }
 
-.xxx {
-  background-color: violet;
-  width: 100%;
-  height: 100%;
+@media (max-width: 1400px) {
+  /* .alchemy--background {
+    position: fixed;
+    background-color: rgb(126, 126, 126);
+    width: 100%;
+    height: 100%;
+    /* left: 300px; 
+    top: 0;
+    z-index: 1; */
+  /* } */
 }
 
-@media (max-width: 1400px) {
+.alchemy--wallet--totalpercentage {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  padding-right: 2px;
 }

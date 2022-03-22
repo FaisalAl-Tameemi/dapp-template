@@ -10,6 +10,8 @@ interface DAOCreationState {
   voteDurationWeeks: number;
   tokenSymbol: string;
   initTokenSupply: number;
+  walletAddresses: any;
+  walletPercentages: any;
 }
 
 // Define the initial state using that type
@@ -21,6 +23,20 @@ const initialState: DAOCreationState = {
   voteDurationWeeks: 0,
   tokenSymbol: "",
   initTokenSupply: 0,
+  walletAddresses: {
+    AirDropWallet: 0,
+    Burn: 0,
+    RealEstate: 0,
+    Marketing: 0,
+    Developer: 0,
+  },
+  walletPercentages: {
+    AirDropWallet: 10,
+    Burn: 12,
+    RealEstate: 14,
+    Marketing: 16,
+    Developer: 18,
+  },
 };
 
 export const DaoCreationSlice = createSlice({
@@ -53,6 +69,24 @@ export const DaoCreationSlice = createSlice({
     changeTokenSymbol: (state, action: PayloadAction<string>) => {
       state.tokenSymbol = action.payload;
     },
+    changeAirdropWalletPercentage: (state, action: PayloadAction<number>) => {
+      state.walletPercentages.AirDropWallet = action.payload;
+    },
+    changeBurnWalletPercentage: (state, action: PayloadAction<number>) => {
+      state.walletPercentages.Burn = action.payload;
+    },
+    changeRealEstateWalletPercentage: (
+      state,
+      action: PayloadAction<number>
+    ) => {
+      state.walletPercentages.RealEstate = action.payload;
+    },
+    changeMarketingWalletPercentage: (state, action: PayloadAction<number>) => {
+      state.walletPercentages.Marketing = action.payload;
+    },
+    changeDeveloperWalletPercentage: (state, action: PayloadAction<number>) => {
+      state.walletPercentages.Developer = action.payload;
+    },
   },
 });
 
@@ -65,6 +99,11 @@ export const {
   changeVoteDuration,
   changeInitTokenSupply,
   changeTokenSymbol,
+  changeAirdropWalletPercentage,
+  changeBurnWalletPercentage,
+  changeDeveloperWalletPercentage,
+  changeMarketingWalletPercentage,
+  changeRealEstateWalletPercentage,
 } = DaoCreationSlice.actions;
 
 // Other code such as selectors can use the imported `RootState` type
