@@ -7,7 +7,6 @@ import { useWeb3React } from "@web3-react/core";
 
 import { Button } from "antd";
 import { injected } from "../../utils/connectors";
-import flask from "../../static/Vector.svg";
 
 export default function Alchemy() {
   const { chainId, account, activate, deactivate, active, library } =

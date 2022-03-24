@@ -24,11 +24,11 @@ const initialState: DAOCreationState = {
   tokenSymbol: "",
   initTokenSupply: 0,
   walletAddresses: {
-    AirDropWallet: 0,
-    Burn: 0,
-    RealEstate: 0,
-    Marketing: 0,
-    Developer: 0,
+    AirDropAddress: 0,
+    BurnAddress: 0,
+    RealEstateAddress: 0,
+    MarketingAddress: 0,
+    DeveloperAddress: 0,
   },
   walletPercentages: {
     AirDropWallet: 10,
@@ -87,6 +87,22 @@ export const DaoCreationSlice = createSlice({
     changeDeveloperWalletPercentage: (state, action: PayloadAction<number>) => {
       state.walletPercentages.Developer = action.payload;
     },
+    ////////////////////////////////////////////////////////////////
+    changeAirdropWalletAddress: (state, action: PayloadAction<string>) => {
+      state.walletAddresses.AirDropAddress = action.payload;
+    },
+    changeBurnWalletAddress: (state, action: PayloadAction<string>) => {
+      state.walletAddresses.BurnAddress = action.payload;
+    },
+    changeRealEstateWalletAddress: (state, action: PayloadAction<string>) => {
+      state.walletAddresses.RealEstateAddress = action.payload;
+    },
+    changeMarketingWalletAddress: (state, action: PayloadAction<string>) => {
+      state.walletAddresses.MarketingAddress = action.payload;
+    },
+    changeDeveloperWalletAddress: (state, action: PayloadAction<string>) => {
+      state.walletAddresses.DeveloperAddress = action.payload;
+    },
   },
 });
 
@@ -104,6 +120,11 @@ export const {
   changeDeveloperWalletPercentage,
   changeMarketingWalletPercentage,
   changeRealEstateWalletPercentage,
+  changeAirdropWalletAddress,
+  changeBurnWalletAddress,
+  changeDeveloperWalletAddress,
+  changeMarketingWalletAddress,
+  changeRealEstateWalletAddress,
 } = DaoCreationSlice.actions;
 
 // Other code such as selectors can use the imported `RootState` type

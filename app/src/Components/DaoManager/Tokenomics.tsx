@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { InputNumber, Switch, Input, Modal } from "antd";
+import { InputNumber, Switch, Input } from "antd";
 import { useAppSelector } from "../../utils/reduxhooks";
 import {
   changeTokenSymbol,
@@ -18,29 +18,47 @@ export default function Tokenomics() {
     (state) => state.Alchemy.initTokenSupply
   );
 
+  const walletAddresses = useAppSelector((state) => {
+    const walletAddresses = state.Alchemy.walletAddresses;
+    return walletAddresses;
+  });
+  const {
+    AirDropAddress,
+    BurnAddress,
+    RealEstateAddress,
+    MarketingAddress,
+    DeveloperAddress,
+  } = walletAddresses;
+
+  const [addressCharCount, setAddressCharCount] = useState(0);
+
   const { account } = useWeb3React<Web3Provider>();
   const [totalPercent, setTotalPercent] = useState(0);
+
   const walletPercentages = useAppSelector((state) => {
     const walletPercentages = state.Alchemy.walletPercentages;
     return walletPercentages;
   });
-
   const { AirDropWallet, Burn, RealEstate, Marketing, Developer } =
     walletPercentages;
 
   useEffect(() => {
     setTotalPercent(AirDropWallet + Burn + RealEstate + Marketing + Developer);
-
-    if (totalPercent > 100) {
-      console.log("greater");
-      console.log(totalPercent);
-    }
+    setAddressCharCount(
+      AirDropAddress.length +
+        BurnAddress.length +
+        RealEstateAddress.length +
+        MarketingAddress.length +
+        DeveloperAddress.length
+    );
+    console.log(addressCharCount);
   });
 
   const [visible, setVisible] = useState(false);
 
+  //add check to make sure that all the accounts are valid
   const handleFinish = () => {
-    if (totalPercent != 100) {
+    if (totalPercent !== 100) {
       setVisible(!visible);
     }
     return;
@@ -48,104 +66,88 @@ export default function Tokenomics() {
 
   return (
     <>
-      <Modal
-        title="Modal"
-        visible={visible}
-        onOk={() => setVisible(!visible)}
-        okText="Okay"
-      >
-        <p>Bla bla ...</p>
-        <p>Bla bla ...</p>
-        <p>Bla bla ...</p>
-      </Modal>
-      <div>
-        {account ? (
-          <div className="alchemy--section--right">
-            <h1 className="alchemy--section--title">Tokenomics</h1>
-            <div className="alchemy--input--group">
-              <h2 className="alchemy--section--subtitle ">
-                CreateERC-20 Token
-              </h2>
-              <Switch className="alchemy--switch" />
-            </div>
-            <div className="alchemy--input--group">
-              <h3 className="alchemy--section--subtitle ">Token Symbol</h3>
-              {/* change to string */}
-              <Input
-                maxLength={4}
-                style={{ width: 100 }}
-                type="string"
-                value={tokenSymbol}
-                onChange={(e) =>
-                  dispatch(changeTokenSymbol(String(e.target.value)))
-                }
-                className="alchemy--input"
-              />
-            </div>
-            <div className="alchemy--input--group">
-              <h2 className="alchemy--section--subtitle ">
-                Fixed Token Supply
-              </h2>
-              <Switch className="alchemy--switch" />
-            </div>
-            <div className="alchemy--input--group">
-              <h3 className="alchemy--section--subtitle ">
-                Initial Token Supply
-              </h3>
+      {account ? (
+        <div className="alchemy--section--right">
+          <h1 className="alchemy--section--title">Tokenomics</h1>
+          <div className="alchemy--input--group">
+            <h2 className="alchemy--section--subtitle ">CreateERC-20 Token</h2>
+            <Switch className="alchemy--switch" />
+          </div>
+          <div className="alchemy--input--group">
+            <h3 className="alchemy--section--subtitle ">Token Symbol</h3>
+            {/* change to string */}
+            <Input
+              maxLength={4}
+              style={{ width: 100 }}
+              type="string"
+              value={tokenSymbol}
+              onChange={(e) =>
+                dispatch(changeTokenSymbol(String(e.target.value)))
+              }
+              className="alchemy--input"
+            />
+          </div>
+          <div className="alchemy--input--group">
+            <h2 className="alchemy--section--subtitle ">Fixed Token Supply</h2>
+            <Switch className="alchemy--switch" />
+          </div>
+          <div className="alchemy--input--group">
+            <h3 className="alchemy--section--subtitle ">
+              Initial Token Supply
+            </h3>
 
-              <InputNumber
-                min={0}
-                max={1000000000000}
-                defaultValue={3}
-                style={{ width: 225 }}
-                className="alchemy--input"
-                value={initTokenSupply}
-                onChange={(value) =>
-                  dispatch(changeInitTokenSupply(Number(value)))
-                }
-              />
-            </div>
-            <div className="alchemy--input--group">
-              <h2 className="alchemy--section--subtitle ">Payouts</h2>
-              <div className="alchemy--payout">
-                <div className="column">
-                  <ul>
-                    <PayableAccounts />
-                  </ul>
-                  <div
-                    // className="alchemy--wallet--totalpercentage"
-                    style={{
-                      color: totalPercent !== 100 ? "red" : "lightgreen ",
-                    }}
-                  >
-                    {totalPercent !== 100 ? (
-                      <>
-                        Please make sure the total adds up to 100%
-                        <br />
-                        Total: ${totalPercent}%
-                      </>
-                    ) : (
-                      `Total: ${totalPercent}%`
-                    )}
-                    <br />
-                    <br />
-                  </div>
+            <InputNumber
+              min={0}
+              max={1000000000000}
+              defaultValue={3}
+              style={{ width: 225 }}
+              className="alchemy--input"
+              value={initTokenSupply}
+              onChange={(value) =>
+                dispatch(changeInitTokenSupply(Number(value)))
+              }
+            />
+          </div>
+          <div className="alchemy--input--group">
+            <h2 className="alchemy--section--subtitle ">Payouts</h2>
+            <div className="alchemy--payout">
+              <div className="column">
+                <ul>
+                  <PayableAccounts />
+                </ul>
+                <div
+                  // className="alchemy--wallet--totalpercentage"
+                  style={{
+                    color: totalPercent !== 100 ? "red" : "lightgreen ",
+                  }}
+                >
+                  {totalPercent !== 100 ? (
+                    <>
+                      Please make sure the total adds up to 100%
+                      <br />
+                      Total: ${totalPercent}%
+                    </>
+                  ) : (
+                    `Total: ${totalPercent}%`
+                  )}
+                  <br />
+                  <br />
                 </div>
               </div>
             </div>
-
-            <br />
-            <div className="alchemy--bottom--links">
-              <Link to="/Alchemy/create/governance">Back</Link>
-              {totalPercent === 100 ? (
-                <Link to="/Alchemy/create/confirmation" onClick={handleFinish}>
-                  Finish
-                </Link>
-              ) : null}
-            </div>
           </div>
-        ) : null}
-      </div>
+
+          <br />
+          <div className="alchemy--bottom--links">
+            <Link to="/Alchemy/create/governance">Back</Link>
+            {totalPercent === 100 && addressCharCount === 210 ? (
+              <Link to="/Alchemy/create/confirmation" onClick={handleFinish}>
+                Finish
+              </Link>
+            ) : null}
+          </div>
+        </div>
+      ) : null}
     </>
   );
 }

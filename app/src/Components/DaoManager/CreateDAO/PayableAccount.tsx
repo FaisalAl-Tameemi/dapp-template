@@ -2,10 +2,15 @@ import { Input, InputNumber } from "antd";
 import "../styles.css";
 import { useAppSelector } from "../../../utils/reduxhooks";
 import {
+  changeAirdropWalletAddress,
   changeAirdropWalletPercentage,
+  changeBurnWalletAddress,
   changeBurnWalletPercentage,
+  changeDeveloperWalletAddress,
   changeDeveloperWalletPercentage,
+  changeMarketingWalletAddress,
   changeMarketingWalletPercentage,
+  changeRealEstateWalletAddress,
   changeRealEstateWalletPercentage,
 } from "../CreateDAO/DaoCreationSlice";
 import { useDispatch } from "react-redux";
@@ -24,6 +29,19 @@ export default function PayableAccounts() {
     }
   );
 
+  const walletAddresses = useAppSelector((state) => {
+    const walletAddresses = state.Alchemy.walletAddresses;
+    return walletAddresses;
+  });
+
+  const {
+    AirDropAddress,
+    BurnAddress,
+    RealEstateAddress,
+    MarketingAddress,
+    DeveloperAddress,
+  } = walletAddresses;
+
   useEffect(() => {
     setTotalPercent(
       walletPercentages.AirDropWallet +
@@ -32,26 +50,42 @@ export default function PayableAccounts() {
         walletPercentages.Marketing +
         walletPercentages.Developer
     );
-
-    if (totalPercent > 100) {
-      console.log("greater");
-      console.log(totalPercent);
-    }
   });
+
+  const isCompleted = (wallet: any) => {
+    if (wallet.length === 42 && totalPercent === 100) {
+      return { color: "lightGreen", fontWeight: 600 };
+    } else return;
+  };
 
   return (
     <>
       <div className="alchemy--payout">
         <div className="align--middle column">
           {/* <h3 className="alchemy--section--subtitle">Type</h3> */}
-          <div className="alchemy--account--type ">AirDrop Wallet</div>
+          <div
+            className="alchemy--account--type"
+            style={isCompleted(AirDropAddress)}
+          >
+            AirDrop Wallet
+          </div>
         </div>
         <div style={{ marginLeft: 20 }}>
           <h3 className="alchemy--section--subtitle ">Wallet Address</h3>
           <Input
             placeholder="Address"
-            style={{ width: 400 }}
+            style={{
+              width: 400,
+              border:
+                AirDropAddress.length === 42
+                  ? "2px solid lightgreen"
+                  : "1px solid white",
+            }}
             className="alchemy--input middle"
+            value={AirDropAddress}
+            onChange={(e) =>
+              dispatch(changeAirdropWalletAddress(String(e.target.value)))
+            }
           ></Input>
         </div>
         <div style={{ marginLeft: 20 }}>
@@ -73,14 +107,29 @@ export default function PayableAccounts() {
       <div className="alchemy--payout">
         <div className="align--middle column">
           {/* <h3 className="alchemy--section--subtitle">Type</h3> */}
-          <div className="alchemy--account--type ">BurnWallet Wallet</div>
+          <div
+            className="alchemy--account--type "
+            style={isCompleted(BurnAddress)}
+          >
+            BurnWallet Wallet
+          </div>
         </div>
         <div style={{ marginLeft: 20 }}>
           <h3 className="alchemy--section--subtitle ">Wallet Address</h3>
           <Input
             placeholder="Address"
-            style={{ width: 400 }}
+            style={{
+              width: 400,
+              border:
+                BurnAddress.length === 42
+                  ? "2px solid lightgreen"
+                  : "1px solid white",
+            }}
             className="alchemy--input middle"
+            value={BurnAddress}
+            onChange={(e) =>
+              dispatch(changeBurnWalletAddress(String(e.target.value)))
+            }
           ></Input>
         </div>
         <div style={{ marginLeft: 20 }}>
@@ -102,14 +151,29 @@ export default function PayableAccounts() {
       <div className="alchemy--payout">
         <div className="align--middle column">
           {/* <h3 className="alchemy--section--subtitle">Type</h3> */}
-          <div className="alchemy--account--type ">RealEstate Wallet</div>
+          <div
+            className="alchemy--account--type "
+            style={isCompleted(BurnAddress)}
+          >
+            RealEstate Wallet
+          </div>
         </div>
         <div style={{ marginLeft: 20 }}>
           <h3 className="alchemy--section--subtitle ">Wallet Address</h3>
           <Input
             placeholder="Address"
-            style={{ width: 400 }}
+            style={{
+              width: 400,
+              border:
+                RealEstateAddress.length === 42
+                  ? "2px solid lightgreen"
+                  : "1px solid white",
+            }}
             className="alchemy--input middle"
+            value={RealEstateAddress}
+            onChange={(e) =>
+              dispatch(changeRealEstateWalletAddress(String(e.target.value)))
+            }
           ></Input>
         </div>
         <div style={{ marginLeft: 20 }}>
@@ -131,14 +195,29 @@ export default function PayableAccounts() {
       <div className="alchemy--payout">
         <div className="align--middle column">
           {/* <h3 className="alchemy--section--subtitle">Type</h3> */}
-          <div className="alchemy--account--type ">Marketing Wallet</div>
+          <div
+            className="alchemy--account--type "
+            style={isCompleted(BurnAddress)}
+          >
+            Marketing Wallet
+          </div>
         </div>
         <div style={{ marginLeft: 20 }}>
           <h3 className="alchemy--section--subtitle ">Wallet Address</h3>
           <Input
             placeholder="Address"
-            style={{ width: 400 }}
+            style={{
+              width: 400,
+              border:
+                MarketingAddress.length === 42
+                  ? "2px solid lightgreen"
+                  : "1px solid white",
+            }}
             className="alchemy--input middle"
+            value={MarketingAddress}
+            onChange={(e) =>
+              dispatch(changeMarketingWalletAddress(String(e.target.value)))
+            }
           ></Input>
         </div>
         <div style={{ marginLeft: 20 }}>
@@ -157,17 +236,32 @@ export default function PayableAccounts() {
         </div>
       </div>
       {/* ================================================================================================================ */}
-      <div className="alchemy--payout">
+      <div className="alchemy--payout" style={{ marginBottom: 50 }}>
         <div className="align--middle column">
           {/* <h3 className="alchemy--section--subtitle">Type</h3> */}
-          <div className="alchemy--account--type ">Developer Wallet</div>
+          <div
+            className="alchemy--account--type "
+            style={isCompleted(BurnAddress)}
+          >
+            Developer Wallet
+          </div>
         </div>
         <div style={{ marginLeft: 20 }}>
           <h3 className="alchemy--section--subtitle ">Wallet Address</h3>
           <Input
             placeholder="Address"
-            style={{ width: 400 }}
+            style={{
+              width: 400,
+              border:
+                DeveloperAddress.length === 42
+                  ? "2px solid lightgreen"
+                  : "1px solid white",
+            }}
             className="alchemy--input middle"
+            value={DeveloperAddress}
+            onChange={(e) =>
+              dispatch(changeDeveloperWalletAddress(String(e.target.value)))
+            }
           ></Input>
         </div>
         <div style={{ marginLeft: 20 }}>

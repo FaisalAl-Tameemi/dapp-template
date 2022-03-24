@@ -14,7 +14,7 @@ export default function BasicDetails() {
   const { account } = useWeb3React<Web3Provider>();
 
   return (
-    <div>
+    <>
       {account ? (
         <div className="alchemy--section--right">
           <h1 className="alchemy--section--title">BasicDetails</h1>
@@ -36,6 +36,6 @@ export default function BasicDetails() {
           </div>
         </div>
       ) : null}
-    </div>
+    </>
   );
 }

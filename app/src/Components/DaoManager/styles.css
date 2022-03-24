@@ -140,3 +140,20 @@
   justify-content: flex-end;
   padding-right: 2px;
 }
+
+.alchemy--confirmation {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding-right: 200px;
+  /* background-color: aquamarine; */
+}
+
+.alchemy--confirmation--result {
+  width: 200px;
+  /* background-color: beige; */
+}
+
+.wallet {
+  padding-right: 0;
+}
