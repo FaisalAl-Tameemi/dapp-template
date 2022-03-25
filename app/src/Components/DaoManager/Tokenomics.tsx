@@ -25,6 +25,7 @@ export default function Tokenomics() {
   const {
     AirDropAddress,
     BurnAddress,
+    LiquidityAddress,
     RealEstateAddress,
     MarketingAddress,
     DeveloperAddress,
@@ -39,13 +40,16 @@ export default function Tokenomics() {
     const walletPercentages = state.Alchemy.walletPercentages;
     return walletPercentages;
   });
-  const { AirDropWallet, Burn, RealEstate, Marketing, Developer } =
+  const { AirDropWallet, Liquidity, Burn, RealEstate, Marketing, Developer } =
     walletPercentages;
 
   useEffect(() => {
-    setTotalPercent(AirDropWallet + Burn + RealEstate + Marketing + Developer);
+    setTotalPercent(
+      AirDropWallet + Liquidity + Burn + RealEstate + Marketing + Developer
+    );
     setAddressCharCount(
       AirDropAddress.length +
+        LiquidityAddress.length +
         BurnAddress.length +
         RealEstateAddress.length +
         MarketingAddress.length +
@@ -140,7 +144,9 @@ export default function Tokenomics() {
           <br />
           <div className="alchemy--bottom--links">
             <Link to="/Alchemy/create/governance">Back</Link>
-            {totalPercent === 100 && addressCharCount === 210 ? (
+            {/* Refactoring needed 
+            // 252 is 6 * 42 => characters needed for all addresses*/}
+            {totalPercent === 100 && addressCharCount === 252 ? (
               <Link to="/Alchemy/create/confirmation" onClick={handleFinish}>
                 Finish
               </Link>

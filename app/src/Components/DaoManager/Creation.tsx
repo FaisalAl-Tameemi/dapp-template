@@ -44,7 +44,6 @@ export default function Creation() {
       if (element) {
         completed++;
         setPercentage((completed / total) * 100);
-        // console.log(element);
       }
       return percentage;
     });

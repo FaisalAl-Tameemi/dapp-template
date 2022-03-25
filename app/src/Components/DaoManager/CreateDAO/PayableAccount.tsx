@@ -8,6 +8,8 @@ import {
   changeBurnWalletPercentage,
   changeDeveloperWalletAddress,
   changeDeveloperWalletPercentage,
+  changeLiquidityWalletAddress,
+  changeLiquidityWalletPercentage,
   changeMarketingWalletAddress,
   changeMarketingWalletPercentage,
   changeRealEstateWalletAddress,
@@ -36,6 +38,7 @@ export default function PayableAccounts() {
 
   const {
     AirDropAddress,
+    LiquidityAddress,
     BurnAddress,
     RealEstateAddress,
     MarketingAddress,
@@ -45,6 +48,7 @@ export default function PayableAccounts() {
   useEffect(() => {
     setTotalPercent(
       walletPercentages.AirDropWallet +
+        walletPercentages.Liquidity +
         walletPercentages.Burn +
         walletPercentages.RealEstate +
         walletPercentages.Marketing +
@@ -100,6 +104,50 @@ export default function PayableAccounts() {
               dispatch(changeAirdropWalletPercentage(Number(value)))
             }
             value={walletPercentages.AirDropWallet}
+          ></InputNumber>
+        </div>
+      </div>
+      {/* ================================================================================================================ */}
+      <div className="alchemy--payout">
+        <div className="align--middle column">
+          {/* <h3 className="alchemy--section--subtitle">Type</h3> */}
+          <div
+            className="alchemy--account--type "
+            style={isCompleted(LiquidityAddress)}
+          >
+            Liquidity Wallet
+          </div>
+        </div>
+        <div style={{ marginLeft: 20 }}>
+          <h3 className="alchemy--section--subtitle ">Wallet Address</h3>
+          <Input
+            placeholder="Address"
+            style={{
+              width: 400,
+              border:
+                LiquidityAddress.length === 42
+                  ? "2px solid lightgreen"
+                  : "1px solid white",
+            }}
+            className="alchemy--input middle"
+            value={LiquidityAddress}
+            onChange={(e) =>
+              dispatch(changeLiquidityWalletAddress(String(e.target.value)))
+            }
+          ></Input>
+        </div>
+        <div style={{ marginLeft: 20 }}>
+          <h3 className="alchemy--section--subtitle ">Allocation</h3>
+          <InputNumber
+            placeholder="%"
+            style={{ width: 100 }}
+            className="alchemy--input"
+            max={100}
+            typeof="number"
+            onChange={(value) =>
+              dispatch(changeLiquidityWalletPercentage(Number(value)))
+            }
+            value={walletPercentages.Liquidity}
           ></InputNumber>
         </div>
       </div>

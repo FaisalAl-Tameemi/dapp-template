@@ -21,14 +21,17 @@ export default function Confirmation() {
 
   const {
     AirDropAddress,
+    LiquidityAddress,
     BurnAddress,
     RealEstateAddress,
     MarketingAddress,
     DeveloperAddress,
   } = walletAddresses;
 
-  const { AirDropWallet, Burn, RealEstate, Marketing, Developer } =
+  const { AirDropWallet, Liquidity, Burn, RealEstate, Marketing, Developer } =
     walletPercentages;
+
+  const handleSubmit = () => {};
 
   return (
     <>
@@ -83,22 +86,27 @@ export default function Confirmation() {
           <div className="alchemy--confirmation wallet">
             <p style={{ width: 215 }}>AirDrop Wallet</p>
             <p className="alchemy--confirmation--result">{AirDropAddress}</p>
-            <p>{AirDropWallet}</p>
+            <p>{AirDropWallet}%</p>
+          </div>
+          <div className="alchemy--confirmation wallet">
+            <p style={{ width: 215 }}>AirDrop Wallet</p>
+            <p className="alchemy--confirmation--result">{LiquidityAddress}</p>
+            <p>{Liquidity}%</p>
           </div>
           <div className="alchemy--confirmation wallet">
             <p style={{ width: 215 }}>Burn Wallet</p>
             <p className="alchemy--confirmation--result">{BurnAddress}</p>
-            <p>{Burn}</p>
+            <p>{Burn}%</p>
           </div>
           <div className="alchemy--confirmation wallet">
             <p style={{ width: 215 }}>Real Estate Wallet</p>
             <p className="alchemy--confirmation--result">{RealEstateAddress}</p>
-            <p>{RealEstate}</p>
+            <p>{RealEstate}%</p>
           </div>
           <div className="alchemy--confirmation wallet">
             <p style={{ width: 215 }}>Marketing Wallet</p>
             <p className="alchemy--confirmation--result">{MarketingAddress}</p>
-            <p>{Marketing}</p>
+            <p>{Marketing}%</p>
           </div>
           <div
             className="alchemy--confirmation wallet"
@@ -106,10 +114,12 @@ export default function Confirmation() {
           >
             <p style={{ width: 215 }}>Developer Wallet</p>
             <p className="alchemy--confirmation--result">{DeveloperAddress}</p>
-            <p>{Developer}</p>
+            <p>{Developer}%</p>
           </div>
         </div>
-        <button className="header--nav--actionbutton">CREATE</button>
+        <button className="header--nav--actionbutton" onClick={handleSubmit}>
+          CREATE
+        </button>
       </div>
     </>
   );

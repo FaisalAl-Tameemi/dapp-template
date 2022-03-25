@@ -24,18 +24,20 @@ const initialState: DAOCreationState = {
   tokenSymbol: "",
   initTokenSupply: 0,
   walletAddresses: {
-    AirDropAddress: 0,
-    BurnAddress: 0,
-    RealEstateAddress: 0,
-    MarketingAddress: 0,
-    DeveloperAddress: 0,
+    AirDropAddress: "",
+    LiquidityAddress: "",
+    BurnAddress: "",
+    RealEstateAddress: "",
+    MarketingAddress: "",
+    DeveloperAddress: "",
   },
   walletPercentages: {
     AirDropWallet: 10,
-    Burn: 12,
-    RealEstate: 14,
-    Marketing: 16,
-    Developer: 18,
+    Liquidity: 10,
+    Burn: 10,
+    RealEstate: 10,
+    Marketing: 10,
+    Developer: 10,
   },
 };
 
@@ -72,6 +74,9 @@ export const DaoCreationSlice = createSlice({
     changeAirdropWalletPercentage: (state, action: PayloadAction<number>) => {
       state.walletPercentages.AirDropWallet = action.payload;
     },
+    changeLiquidityWalletPercentage: (state, action: PayloadAction<number>) => {
+      state.walletPercentages.Liquidity = action.payload;
+    },
     changeBurnWalletPercentage: (state, action: PayloadAction<number>) => {
       state.walletPercentages.Burn = action.payload;
     },
@@ -90,6 +95,9 @@ export const DaoCreationSlice = createSlice({
     ////////////////////////////////////////////////////////////////
     changeAirdropWalletAddress: (state, action: PayloadAction<string>) => {
       state.walletAddresses.AirDropAddress = action.payload;
+    },
+    changeLiquidityWalletAddress: (state, action: PayloadAction<string>) => {
+      state.walletAddresses.LiquidityAddress = action.payload;
     },
     changeBurnWalletAddress: (state, action: PayloadAction<string>) => {
       state.walletAddresses.BurnAddress = action.payload;
@@ -116,11 +124,13 @@ export const {
   changeInitTokenSupply,
   changeTokenSymbol,
   changeAirdropWalletPercentage,
+  changeLiquidityWalletPercentage,
   changeBurnWalletPercentage,
   changeDeveloperWalletPercentage,
   changeMarketingWalletPercentage,
   changeRealEstateWalletPercentage,
   changeAirdropWalletAddress,
+  changeLiquidityWalletAddress,
   changeBurnWalletAddress,
   changeDeveloperWalletAddress,
   changeMarketingWalletAddress,
