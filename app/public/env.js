@@ -28,7 +28,7 @@ window.env = {
   "npm_package_browserslist_development_2": "last 1 safari version",
   "npm_execpath": "/usr/local/lib/node_modules/yarn/bin/yarn.js",
   "npm_package_dependencies_react_redux": "^7.2.6",
-  "PATH": "/var/folders/js/h4x98nfj25g1cxlvsg5jtgzw0000gn/T/yarn--1648151154258-0.8176697196584184:/Users/nikitagurbatov/bitProperties/app/node_modules/.bin:/Users/nikitagurbatov/.config/yarn/link/node_modules/.bin:/Users/nikitagurbatov/.yarn/bin:/usr/local/libexec/lib/node_modules/npm/bin/node-gyp-bin:/usr/local/lib/node_modules/npm/bin/node-gyp-bin:/usr/local/bin/node_modules/npm/bin/node-gyp-bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+  "PATH": "/var/folders/js/h4x98nfj25g1cxlvsg5jtgzw0000gn/T/yarn--1648234128579-0.951582762586189:/Users/nikitagurbatov/bitProperties/app/node_modules/.bin:/Users/nikitagurbatov/.config/yarn/link/node_modules/.bin:/Users/nikitagurbatov/.yarn/bin:/usr/local/libexec/lib/node_modules/npm/bin/node-gyp-bin:/usr/local/lib/node_modules/npm/bin/node-gyp-bin:/usr/local/bin/node_modules/npm/bin/node-gyp-bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin",
   "npm_config_argv": "{\"remain\":[],\"cooked\":[\"run\",\"start\"],\"original\":[\"start\"]}",
   "npm_package_dependencies__ethersproject_providers": "^5.4.5",
   "_": "/Users/nikitagurbatov/bitProperties/app/node_modules/.bin/react-dotenv",
@@ -65,6 +65,7 @@ window.env = {
   "LOGNAME": "nikitagurbatov",
   "YARN_WRAP_OUTPUT": "false",
   "npm_package_dependencies_react_scripts": "4.0.3",
+  "npm_package_dependencies__nomiclabs_hardhat_ethers": "^2.0.5",
   "npm_lifecycle_script": "react-dotenv && craco start",
   "npm_package_dependencies_react_transition_group": "^4.4.2",
   "VSCODE_GIT_IPC_HANDLE": "/var/folders/js/h4x98nfj25g1cxlvsg5jtgzw0000gn/T/vscode-git-49c7529927.sock",
@@ -87,5 +88,5 @@ window.env = {
   "COLORTERM": "truecolor",
   "npm_node_execpath": "/usr/local/bin/node",
   "npm_config_version_tag_prefix": "v",
-  "REACT_APP_SMART_CONTRACT_ADDRESS": "0x92B8FAA7200708FD63264FAeF75f14A2Bbab66FD"
+  "REACT_APP_SMART_CONTRACT_ADDRESS": "0x4bf010f1b9beDA5450a8dD702ED602A104ff65EE"
 };

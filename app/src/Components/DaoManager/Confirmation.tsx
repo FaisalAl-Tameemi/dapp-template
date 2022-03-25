@@ -1,8 +1,13 @@
 import React from "react";
 import "./styles.css";
 import { useAppSelector } from "../../utils/reduxhooks";
+import { ethers } from "ethers";
+import DAOFactoryABI from "../../artifacts/contracts/DAOFactory.sol/DAOFactory.json";
+import { useWeb3React } from "@web3-react/core";
 
 export default function Confirmation() {
+  const DAOFactoryAddress = "0x4bf010f1b9beda5450a8dd702ed602a104ff65ee";
+
   const name = useAppSelector((state) => state.Alchemy.name);
 
   const inputs = useAppSelector((state) => {
@@ -31,7 +36,56 @@ export default function Confirmation() {
   const { AirDropWallet, Liquidity, Burn, RealEstate, Marketing, Developer } =
     walletPercentages;
 
-  const handleSubmit = () => {};
+  let uniswapRouterAddress: string =
+    "0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D";
+  const context = useWeb3React();
+  const { library } = context;
+
+  const handleSubmit = async () => {
+    try {
+      const signer = library.getSigner();
+      const factory = await new ethers.Contract(
+        DAOFactoryAddress,
+        DAOFactoryABI.abi,
+        signer
+      );
+
+      const launchDAOTxn = await factory.launchDAO(
+        inputs.name,
+        inputs.tokenName,
+        inputs.tokenSymbol,
+        inputs.initTokenSupply,
+        {
+          _airDropContractAddress: AirDropAddress,
+          _burnWalletAddress: LiquidityAddress,
+          _liquidityWalletAddress: BurnAddress,
+          _realEstateWalletAddress: RealEstateAddress,
+          _marketingWalletAddress: MarketingAddress,
+          _developerWalletAddress: DeveloperAddress,
+        },
+        uniswapRouterAddress,
+        {
+          airdropPercent: AirDropWallet,
+          liquidityPoolPercent: Liquidity,
+          burnPercent: Burn,
+          developerPercent: Developer,
+          marketingPercent: Marketing,
+        }
+      );
+
+      const resp = await launchDAOTxn.wait();
+      console.log("Resp", resp);
+
+      const event = resp.events?.find((event: any) => event.event === "NewDAO");
+      console.log("Event:", event);
+
+      const [daoRouterAddress, daoTokenAddress, daoGovernorAddress] =
+        event?.args as any;
+      console.log(daoRouterAddress, daoTokenAddress, daoGovernorAddress);
+    } catch (error) {
+      console.log("launchDAO error", error);
+    }
+  };
 
   return (
     <>
@@ -65,6 +119,10 @@ export default function Confirmation() {
           <h2 className="alchemy--section--subtitle" style={{ marginTop: 30 }}>
             Tokenomics
           </h2>
+          <div className="alchemy--confirmation">
+            <p>Token Name</p>
+            <p className="alchemy--confirmation--result">{inputs.tokenName}</p>
+          </div>
           <div className="alchemy--confirmation">
             <p>Token Symbol</p>
             <p className="alchemy--confirmation--result">

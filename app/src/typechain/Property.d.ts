@@ -29,12 +29,15 @@ interface PropertyInterface extends ethers.utils.Interface {
     "listings(address)": FunctionFragment;
     "mint(uint256)": FunctionFragment;
     "paymentBalances(address)": FunctionFragment;
+    "pricePerShare()": FunctionFragment;
     "purchaseShares(address,uint256)": FunctionFragment;
-    "receiveRewards()": FunctionFragment;
+    "receiveFunds()": FunctionFragment;
     "safeBatchTransferFrom(address,address,uint256[],uint256[],bytes)": FunctionFragment;
     "safeTransferFrom(address,address,uint256,uint256,bytes)": FunctionFragment;
     "setApprovalForAll(address,bool)": FunctionFragment;
     "supportsInterface(bytes4)": FunctionFragment;
+    "totalIssuedShares()": FunctionFragment;
+    "totalShares()": FunctionFragment;
     "uri(uint256)": FunctionFragment;
     "withdrawFunds(uint256,address)": FunctionFragment;
   };
@@ -62,11 +65,15 @@ interface PropertyInterface extends ethers.utils.Interface {
     values: [string]
   ): string;
   encodeFunctionData(
+    functionFragment: "pricePerShare",
+    values?: undefined
+  ): string;
+  encodeFunctionData(
     functionFragment: "purchaseShares",
     values: [string, BigNumberish]
   ): string;
   encodeFunctionData(
-    functionFragment: "receiveRewards",
+    functionFragment: "receiveFunds",
     values?: undefined
   ): string;
   encodeFunctionData(
@@ -84,6 +91,14 @@ interface PropertyInterface extends ethers.utils.Interface {
   encodeFunctionData(
     functionFragment: "supportsInterface",
     values: [BytesLike]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "totalIssuedShares",
+    values?: undefined
+  ): string;
+  encodeFunctionData(
+    functionFragment: "totalShares",
+    values?: undefined
   ): string;
   encodeFunctionData(functionFragment: "uri", values: [BigNumberish]): string;
   encodeFunctionData(
@@ -108,11 +123,15 @@ interface PropertyInterface extends ethers.utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(
+    functionFragment: "pricePerShare",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
     functionFragment: "purchaseShares",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "receiveRewards",
+    functionFragment: "receiveFunds",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -131,6 +150,14 @@ interface PropertyInterface extends ethers.utils.Interface {
     functionFragment: "supportsInterface",
     data: BytesLike
   ): Result;
+  decodeFunctionResult(
+    functionFragment: "totalIssuedShares",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "totalShares",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(functionFragment: "uri", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "withdrawFunds",
@@ -139,15 +166,27 @@ interface PropertyInterface extends ethers.utils.Interface {
 
   events: {
     "ApprovalForAll(address,address,bool)": EventFragment;
+    "ListShares(address,uint256)": EventFragment;
+    "MintShares(address,uint256)": EventFragment;
+    "PurchaseShares(address,address,uint256)": EventFragment;
+    "ReceiveFunds(address,uint256)": EventFragment;
+    "ReceiveFundsPayout(address,uint256)": EventFragment;
     "TransferBatch(address,address,address,uint256[],uint256[])": EventFragment;
     "TransferSingle(address,address,address,uint256,uint256)": EventFragment;
     "URI(string,uint256)": EventFragment;
+    "WithdrawFunds(address,uint256)": EventFragment;
   };
 
   getEvent(nameOrSignatureOrTopic: "ApprovalForAll"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "ListShares"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "MintShares"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "PurchaseShares"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "ReceiveFunds"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "ReceiveFundsPayout"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "TransferBatch"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "TransferSingle"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "URI"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "WithdrawFunds"): EventFragment;
 }
 
 export type ApprovalForAllEvent = TypedEvent<
@@ -156,6 +195,30 @@ export type ApprovalForAllEvent = TypedEvent<
     operator: string;
     approved: boolean;
   }
+>;
+
+export type ListSharesEvent = TypedEvent<
+  [string, BigNumber] & { seller: string; amount: BigNumber }
+>;
+
+export type MintSharesEvent = TypedEvent<
+  [string, BigNumber] & { minter: string; amount: BigNumber }
+>;
+
+export type PurchaseSharesEvent = TypedEvent<
+  [string, string, BigNumber] & {
+    buyer: string;
+    seller: string;
+    amount: BigNumber;
+  }
+>;
+
+export type ReceiveFundsEvent = TypedEvent<
+  [string, BigNumber] & { fromAddress: string; value: BigNumber }
+>;
+
+export type ReceiveFundsPayoutEvent = TypedEvent<
+  [string, BigNumber] & { toAddress: string; value: BigNumber }
 >;
 
 export type TransferBatchEvent = TypedEvent<
@@ -180,6 +243,10 @@ export type TransferSingleEvent = TypedEvent<
 
 export type URIEvent = TypedEvent<
   [string, BigNumber] & { value: string; id: BigNumber }
+>;
+
+export type WithdrawFundsEvent = TypedEvent<
+  [string, BigNumber] & { withdrawalAddress: string; value: BigNumber }
 >;
 
 export class Property extends BaseContract {
@@ -267,13 +334,15 @@ export class Property extends BaseContract {
       overrides?: CallOverrides
     ): Promise<[BigNumber]>;
 
+    pricePerShare(overrides?: CallOverrides): Promise<[BigNumber]>;
+
     purchaseShares(
       listingId: string,
       amountToPurchase: BigNumberish,
       overrides?: PayableOverrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
-    receiveRewards(
+    receiveFunds(
       overrides?: PayableOverrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
@@ -305,6 +374,10 @@ export class Property extends BaseContract {
       interfaceId: BytesLike,
       overrides?: CallOverrides
     ): Promise<[boolean]>;
+
+    totalIssuedShares(overrides?: CallOverrides): Promise<[BigNumber]>;
+
+    totalShares(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     uri(arg0: BigNumberish, overrides?: CallOverrides): Promise<[string]>;
 
@@ -351,13 +424,15 @@ export class Property extends BaseContract {
 
   paymentBalances(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
 
+  pricePerShare(overrides?: CallOverrides): Promise<BigNumber>;
+
   purchaseShares(
     listingId: string,
     amountToPurchase: BigNumberish,
     overrides?: PayableOverrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
-  receiveRewards(
+  receiveFunds(
     overrides?: PayableOverrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
@@ -389,6 +464,10 @@ export class Property extends BaseContract {
     interfaceId: BytesLike,
     overrides?: CallOverrides
   ): Promise<boolean>;
+
+  totalIssuedShares(overrides?: CallOverrides): Promise<BigNumber>;
+
+  totalShares(overrides?: CallOverrides): Promise<BigNumber>;
 
   uri(arg0: BigNumberish, overrides?: CallOverrides): Promise<string>;
 
@@ -440,13 +519,15 @@ export class Property extends BaseContract {
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
+    pricePerShare(overrides?: CallOverrides): Promise<BigNumber>;
+
     purchaseShares(
       listingId: string,
       amountToPurchase: BigNumberish,
       overrides?: CallOverrides
     ): Promise<void>;
 
-    receiveRewards(overrides?: CallOverrides): Promise<void>;
+    receiveFunds(overrides?: CallOverrides): Promise<void>;
 
     safeBatchTransferFrom(
       from: string,
@@ -477,6 +558,10 @@ export class Property extends BaseContract {
       overrides?: CallOverrides
     ): Promise<boolean>;
 
+    totalIssuedShares(overrides?: CallOverrides): Promise<BigNumber>;
+
+    totalShares(overrides?: CallOverrides): Promise<BigNumber>;
+
     uri(arg0: BigNumberish, overrides?: CallOverrides): Promise<string>;
 
     withdrawFunds(
@@ -503,6 +588,88 @@ export class Property extends BaseContract {
     ): TypedEventFilter<
       [string, string, boolean],
       { account: string; operator: string; approved: boolean }
+    >;
+
+    "ListShares(address,uint256)"(
+      seller?: null,
+      amount?: null
+    ): TypedEventFilter<
+      [string, BigNumber],
+      { seller: string; amount: BigNumber }
+    >;
+
+    ListShares(
+      seller?: null,
+      amount?: null
+    ): TypedEventFilter<
+      [string, BigNumber],
+      { seller: string; amount: BigNumber }
+    >;
+
+    "MintShares(address,uint256)"(
+      minter?: null,
+      amount?: null
+    ): TypedEventFilter<
+      [string, BigNumber],
+      { minter: string; amount: BigNumber }
+    >;
+
+    MintShares(
+      minter?: null,
+      amount?: null
+    ): TypedEventFilter<
+      [string, BigNumber],
+      { minter: string; amount: BigNumber }
+    >;
+
+    "PurchaseShares(address,address,uint256)"(
+      buyer?: null,
+      seller?: null,
+      amount?: null
+    ): TypedEventFilter<
+      [string, string, BigNumber],
+      { buyer: string; seller: string; amount: BigNumber }
+    >;
+
+    PurchaseShares(
+      buyer?: null,
+      seller?: null,
+      amount?: null
+    ): TypedEventFilter<
+      [string, string, BigNumber],
+      { buyer: string; seller: string; amount: BigNumber }
+    >;
+
+    "ReceiveFunds(address,uint256)"(
+      fromAddress?: null,
+      value?: null
+    ): TypedEventFilter<
+      [string, BigNumber],
+      { fromAddress: string; value: BigNumber }
+    >;
+
+    ReceiveFunds(
+      fromAddress?: null,
+      value?: null
+    ): TypedEventFilter<
+      [string, BigNumber],
+      { fromAddress: string; value: BigNumber }
+    >;
+
+    "ReceiveFundsPayout(address,uint256)"(
+      toAddress?: null,
+      value?: null
+    ): TypedEventFilter<
+      [string, BigNumber],
+      { toAddress: string; value: BigNumber }
+    >;
+
+    ReceiveFundsPayout(
+      toAddress?: null,
+      value?: null
+    ): TypedEventFilter<
+      [string, BigNumber],
+      { toAddress: string; value: BigNumber }
     >;
 
     "TransferBatch(address,address,address,uint256[],uint256[])"(
@@ -582,6 +749,22 @@ export class Property extends BaseContract {
       value?: null,
       id?: BigNumberish | null
     ): TypedEventFilter<[string, BigNumber], { value: string; id: BigNumber }>;
+
+    "WithdrawFunds(address,uint256)"(
+      withdrawalAddress?: null,
+      value?: null
+    ): TypedEventFilter<
+      [string, BigNumber],
+      { withdrawalAddress: string; value: BigNumber }
+    >;
+
+    WithdrawFunds(
+      withdrawalAddress?: null,
+      value?: null
+    ): TypedEventFilter<
+      [string, BigNumber],
+      { withdrawalAddress: string; value: BigNumber }
+    >;
   };
 
   estimateGas: {
@@ -621,13 +804,15 @@ export class Property extends BaseContract {
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
+    pricePerShare(overrides?: CallOverrides): Promise<BigNumber>;
+
     purchaseShares(
       listingId: string,
       amountToPurchase: BigNumberish,
       overrides?: PayableOverrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
-    receiveRewards(
+    receiveFunds(
       overrides?: PayableOverrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
@@ -659,6 +844,10 @@ export class Property extends BaseContract {
       interfaceId: BytesLike,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
+
+    totalIssuedShares(overrides?: CallOverrides): Promise<BigNumber>;
+
+    totalShares(overrides?: CallOverrides): Promise<BigNumber>;
 
     uri(arg0: BigNumberish, overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -709,13 +898,15 @@ export class Property extends BaseContract {
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
+    pricePerShare(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
     purchaseShares(
       listingId: string,
       amountToPurchase: BigNumberish,
       overrides?: PayableOverrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
-    receiveRewards(
+    receiveFunds(
       overrides?: PayableOverrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
@@ -747,6 +938,10 @@ export class Property extends BaseContract {
       interfaceId: BytesLike,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
+
+    totalIssuedShares(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    totalShares(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     uri(
       arg0: BigNumberish,

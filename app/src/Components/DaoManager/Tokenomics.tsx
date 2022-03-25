@@ -22,6 +22,7 @@ export default function Tokenomics() {
     const walletAddresses = state.Alchemy.walletAddresses;
     return walletAddresses;
   });
+
   const {
     AirDropAddress,
     BurnAddress,
@@ -55,7 +56,6 @@ export default function Tokenomics() {
         MarketingAddress.length +
         DeveloperAddress.length
     );
-    console.log(addressCharCount);
   });
 
   const [visible, setVisible] = useState(false);

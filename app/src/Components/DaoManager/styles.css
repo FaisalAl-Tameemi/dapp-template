@@ -146,12 +146,11 @@
   flex-direction: row;
   justify-content: space-between;
   padding-right: 200px;
-  /* background-color: aquamarine; */
 }
 
 .alchemy--confirmation--result {
   width: 200px;
-  /* background-color: beige; */
+  margin-left: -150px;
 }
 
 .wallet {
