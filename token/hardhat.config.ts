@@ -10,12 +10,16 @@ const config: HardhatUserConfig = {
     }]
   },
   networks: {
-    hardhat: {
+    hardhat: { // local
       chainId: 1337,
       // accounts: [{
       //   privateKey: '0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80',
       //   balance: '9999'
       // }]
+      allowUnlimitedContractSize: true,
+      forking: {
+        url: 'https://eth-mainnet.alchemyapi.io/v2/Sgd8L39stCNQnsuXxYAKXVvFU_z5UlXv',
+      }
     },
     rinkeby: {
       url: 'https://rinkeby.infura.io/v3/01091511c975487ba99f221730a3ba08',

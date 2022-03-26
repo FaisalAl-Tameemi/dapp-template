@@ -28,17 +28,18 @@
   top: 0;
   height: calc(100%);
   width: 300px;
-  border-right: 1px solid white;
 }
 
 .alchemy--side--container {
   padding: 130px 40px 30px 40px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: space-around;
+  background: linear-gradient(270deg, #6a4cdb);
   position: absolute;
   height: 100%;
   width: 100%;
+  box-shadow: 7px 0px 15px #403089;
 }
 
 .flex {
@@ -120,6 +121,10 @@
 
 .alchemy--steps {
   height: 400px;
+}
+.alchemy--step {
+  /* background-color: aquamarine; */
+  color: white;
 }
 
 @media (max-width: 1400px) {

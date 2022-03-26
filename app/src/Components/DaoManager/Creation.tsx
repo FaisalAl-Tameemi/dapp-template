@@ -94,7 +94,6 @@ export default function Creation() {
               "100%": "#87d068",
             }}
           />
-          <div className="x"></div>
           <div>
             <Steps
               current={current}
@@ -102,7 +101,7 @@ export default function Creation() {
               direction="vertical"
               className="alchemy--steps"
             >
-              <Step title={`Basic Information`}></Step>
+              <Step style={{}} title={`Basic Information`}></Step>
               <Step title={`Governance`}></Step>
               <Step title={`Tokenomics`}></Step>
               <Step title={`Done!`}></Step>

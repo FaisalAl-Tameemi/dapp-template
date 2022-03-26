@@ -5,6 +5,20 @@ import "@openzeppelin/contracts/utils/math/SafeMath.sol";
 import "@openzeppelin/contracts/utils/structs/EnumerableSet.sol";
 
 contract Property is ERC1155 {
+    // emitted when a user purchases shares listed by another user
+    event PurchaseShares(address buyer, address seller, uint256 amount);
+    // emitted when a user lists some portion of their shares for sale
+    event ListShares(address seller, uint256 amount);
+    // emitted when a user mints some of the supply of the collection
+    event MintShares(address minter, uint256 amount);
+    // emitted when a user withdraws the funds they have available within the contract
+    // for example: a user listed shares, they sold, the user wants their funds out
+    event WithdrawFunds(address withdrawalAddress, uint256 value);
+    // emitted when funds are received into the contract
+    event ReceiveFunds(address fromAddress, uint256 value);
+    // emitted for each payment made to individual addresses after the shares-based split
+    event ReceiveFundsPayout(address toAddress, uint256 value);
+
     using SafeMath for uint256;
     using EnumerableSet for EnumerableSet.AddressSet;
 
@@ -17,9 +31,9 @@ contract Property is ERC1155 {
         uint256 amount;
     }
 
-    uint256 pricePerShare;
-    uint256 totalShares;
-    uint256 totalIssuedShares;
+    uint256 public pricePerShare;
+    uint256 public totalShares;
+    uint256 public totalIssuedShares;
     EnumerableSet.AddressSet private shareHolders;
 
     constructor(string memory _baseUrl, uint256 _pricePerShare, uint256 _totalShares) public ERC1155(_baseUrl) {
@@ -55,7 +69,7 @@ contract Property is ERC1155 {
 
         paymentBalances[listingId] += msg.value;
         safeTransferFrom(listingId, msg.sender, TOKEN_ID, amountToPurchase, "");
-        
+
         if (amountToPurchase == listings[listingId].amount) {
             delete listings[listingId];
         } else {
@@ -74,15 +88,16 @@ contract Property is ERC1155 {
         paymentBalances[msg.sender] -= amount;
     }
 
-    function receiveRewards () public payable {
+    function receiveFunds () public payable {
         // iterate over each holder
         for (uint i = 0; i < shareHolders.length(); i++) {
-            address shareHolderAddr = shareHolders.at(i);
+            address payable shareHolderAddr = payable(shareHolders.at(i));
             uint256 tokenBalance = balanceOf(shareHolderAddr, TOKEN_ID);
 
             if (tokenBalance > 0) {
                 uint256 partialPayment = tokenBalance.div(totalIssuedShares).mul(msg.value);
-                paymentBalances[shareHolderAddr] = paymentBalances[shareHolderAddr].add(partialPayment);
+                // paymentBalances[shareHolderAddr] = paymentBalances[shareHolderAddr].add(partialPayment);
+                shareHolderAddr.transfer(partialPayment);
             }
         }
     }

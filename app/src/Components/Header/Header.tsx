@@ -15,8 +15,6 @@ export default function Header() {
   let navigate = useNavigate();
   const location = useLocation();
 
-  const [menuIsActive, setMenuIsActive] = useState(false);
-
   const { chainId, account, activate, deactivate, active, library } =
     useWeb3React<Web3Provider>();
 
@@ -25,19 +23,7 @@ export default function Header() {
     console.log(activate(injected));
   };
 
-  const titleWallet = <span>Wallet</span>;
-  const content = (
-    <div>
-      {account ? (
-        <div>
-          <p>Account: {account}</p>
-          <button onClick={() => deactivate()}>Disconnect</button>
-        </div>
-      ) : (
-        <button onClick={() => _connectToMetamask()}>Connect</button>
-      )}
-    </div>
-  );
+  const content = <div>{account ? <>{account}</> : <>Connect Wallet</>}</div>;
 
   const pathName = location.pathname.toString();
   let isAlchemy = pathName.includes("Alchemy/");
@@ -59,9 +45,7 @@ export default function Header() {
           <nav>
             <ul className="header--nav">
               <li className="header--li">
-                <button className="header--nav--actionbutton">
-                  MARKETPLACE
-                </button>
+                <button className="header--nav--link">MARKETPLACE</button>
               </li>
               <li className="header--li">
                 <a
@@ -77,6 +61,16 @@ export default function Header() {
                 </Link>
               </li>
               <li className="header--li">
+                <button
+                  className="header--nav--actionbutton"
+                  onClick={
+                    !account ? () => _connectToMetamask() : () => deactivate()
+                  }
+                >
+                  {content}
+                </button>
+              </li>
+              {/* <li className="header--li">
                 <Popover
                   placement="bottomRight"
                   title={titleWallet}
@@ -86,21 +80,11 @@ export default function Header() {
                 >
                   <img src={wallet} alt="" />
                 </Popover>
-              </li>
-              {/* <div
-                className={`burger ${
-                  menuIsActive ? `menu--is--active` : null
-                } `}
-                onClick={() => setMenuIsActive(!menuIsActive)}
-              >
-                <span className="menu--line"></span>
-                <span className="menu--line"></span>
-              </div> */}
+              </li> */}
             </ul>
           </nav>
         ) : null}
       </div>
-      {/* <CollapsedNav {...MyxProps} /> */}
     </div>
   );
 }

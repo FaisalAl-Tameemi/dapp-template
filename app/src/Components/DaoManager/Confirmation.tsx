@@ -74,7 +74,7 @@ export default function Confirmation() {
       );
 
       const resp = await launchDAOTxn.wait();
-      console.log("Resp", resp);
+      console.log("DAO Launched", resp);
 
       const event = resp.events?.find((event: any) => event.event === "NewDAO");
       console.log("Event:", event);
@@ -132,7 +132,7 @@ export default function Confirmation() {
           <div className="alchemy--confirmation">
             <p>Initial Token Supply</p>
             <p className="alchemy--confirmation--result">
-              {inputs.initTokenSupply}
+              {inputs.initTokenSupply.toLocaleString()}
             </p>
           </div>
         </div>

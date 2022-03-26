@@ -12,18 +12,17 @@ import { Web3Provider } from "@ethersproject/providers";
 import { useWeb3React } from "@web3-react/core";
 
 export default function Governance() {
-  const proposalPassing = useAppSelector(
-    (state) => state.Alchemy.proposalPassing
-  );
-  const quorumPercentage = useAppSelector(
-    (state) => state.Alchemy.quorumPercentage
-  );
-  const voteDurationDays = useAppSelector(
-    (state) => state.Alchemy.voteDurationDays
-  );
-  const voteDurationWeeks = useAppSelector(
-    (state) => state.Alchemy.voteDurationWeeks
-  );
+  const inputs = useAppSelector((state) => {
+    const inputs = state.Alchemy;
+    return inputs;
+  });
+
+  const {
+    proposalPassing,
+    quorumPercentage,
+    voteDurationDays,
+    voteDurationWeeks,
+  } = inputs;
 
   const dispatch = useAppDispatch();
 

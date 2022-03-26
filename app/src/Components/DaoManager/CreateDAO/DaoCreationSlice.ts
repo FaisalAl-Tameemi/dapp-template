@@ -18,7 +18,7 @@ interface DAOCreationState {
 // Define the initial state using that type
 const initialState: DAOCreationState = {
   name: "Quinta DAO",
-  proposalPassing: 0,
+  proposalPassing: 50,
   quorumPercentage: 20,
   voteDurationDays: 0,
   voteDurationWeeks: 1,
